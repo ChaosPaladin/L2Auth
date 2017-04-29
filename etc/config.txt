@@ -1,0 +1,39 @@
+serverPort=2104
+serverExPort=2106
+serverIntPort=2108
+worldport=7777
+DBConnectionNum=10
+encrypt=true
+numServerThread=2
+numServerExThread=2
+numServerIntThread=2
+logDirectory="log"
+;30810 : l2, 30310 : Sl
+ProtocolVersion=30810
+;8:lineage2, 4 halo
+GameID=8
+DesApply=false
+PacketSizeType=3
+ReadLocalServerList=false
+OneTimeLogOut=true
+CountryCode=2
+DevConnectOuter=true
+DevServerIP="127.0.0.1"
+;SocketTimeOut if player no Action while they in game then kick out.
+SocketTimeOut=10
+SocketLimit=5000
+AcceptCallNum=1
+UseOneIOCom=true
+AcceptThread=1
+WaitingUserLimit=100
+dumppacket=false
+UserData=false
+UseLogD=false
+logdip="127.0.0.1"
+logdport=3999
+logdconnectinterval=120
+;(true=auth-main reconnect on/false=auth-main reconnect off)
+SupportReconnect=false
+AutokickAccount=true
+NewEncrypt=false
+useForbiddenIPList=true
