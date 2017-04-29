@@ -12,22 +12,22 @@ NOTE: branch "legacy" contains only ORIGINALY decompiled code, with origin bugs.
 ### How to Build
 * install newest cmake
 * go to the project's root directory
-* run commands:
-mkdir build
-cd build
-cmake ../
-cmake --build .
-cmake --build . --target install
+* run commands:  
+mkdir build  
+cd build  
+cmake ../  
+cmake --build .  
+cmake --build . --target install  
 * after that, you will have MSVC project inside build/ directory, and built ready-to-use L2AuthD inside build/install
 
 # L2AuthD
 * Reverse engineered code of L2AuthD.exe, build version: 40504
 * All modules were originally decompiled, including Blowfish algorithm, MD5, original prints (including Korean), password encryptions (for DB access and user ones), packet handling, call-stack report during crash, mail server, INI-file reading, etc
 * The ONLY foreign code is DES algorithm. I wasn't able to decompile it at 100%, so some other open-source implementation is used
-* Orignal Blowfish key is used: 5F 3B 35 2E 5D 39 34 2D 33 31 3D 3D 2D 25 78 54 21 5E 5B 24. Note, that there are few packs with changed BF keys:
-5F 3B 35 2E 5D 39 34 2D 33 31 3D 3D 2D 25 78 54 21 5E 5B 24
-6E 63 73 6F 66 74 6C 69 6E 65 61 67 65 32 2E 63 6F 6D 20 20
-5B 3B 27 2E 5D 39 34 2D 33 31 3D 3D 2D 25 26 40 21 5E 2B 5D
+* Orignal Blowfish key is used: 5F 3B 35 2E 5D 39 34 2D 33 31 3D 3D 2D 25 78 54 21 5E 5B 24. Note, that there are few packs with changed BF keys:  
+5F 3B 35 2E 5D 39 34 2D 33 31 3D 3D 2D 25 78 54 21 5E 5B 24  
+6E 63 73 6F 66 74 6C 69 6E 65 61 67 65 32 2E 63 6F 6D 20 20  
+5B 3B 27 2E 5D 39 34 2D 33 31 3D 3D 2D 25 26 40 21 5E 2B 5D  
 
 
 #L2LogD
