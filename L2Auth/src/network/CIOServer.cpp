@@ -48,7 +48,7 @@ void CIOServer::OnIOCallback(BOOL /*bSuccess*/, DWORD /*dwTransferred*/, LPOVERL
     }
 
     CIOSocket* socket = CreateSocket(newSocket, &clientAddress);
-    if (socket == nullptr)
+    if (socket == NULL)
     {
         g_winlog.AddLog(LOG_ERR, "ServerClose:CreateSocket Fail");
         ::closesocket(newSocket);

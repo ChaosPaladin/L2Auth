@@ -23,7 +23,7 @@ bool IPSocket::isReconnecting = false;
 CRWLock IPSocket::s_lock;
 HANDLE IPSocket::s_timer;
 
-IPSocket* g_IPSocket = nullptr;
+IPSocket* g_IPSocket = NULL;
 
 const IPSocket::PacketHandler IPSocket::handlers[16] = {&IPSocket::packet00_handler,
                                                         &IPSocket::packet_dummy_handler,
@@ -317,7 +317,7 @@ bool IPSocket::packet03_handler(IPSocket* /*ipSocket*/, uint8_t* buffer)
     {
         accountName[14] = 0;
         CAuthSocket* authSocket = g_authServer.FindSocket(gameSocket);
-        if (authSocket != nullptr)
+        if (authSocket != NULL)
         {
             PlayFail result = g_accountDb.AboutToPlay(uid, accountName, totalTime, loginFlag, warnFlag, sessionKey, authSocket, serverId, payStat);
             authSocket->ReleaseRef();
@@ -423,7 +423,7 @@ bool IPSocket::packet11_handler(IPSocket* /*ipSocket*/, uint8_t* buffer)
     {
         accName[14] = 0;
         CAuthSocket* authSocket = g_authServer.FindSocket(socket);
-        if (authSocket != nullptr)
+        if (authSocket != NULL)
         {
             PlayFail result = g_accountDb.AboutToPlay(uid, accName, totalTime, loginFlag, warnFlag, sessionKey, authSocket, serverId, payStatus);
             authSocket->ReleaseRef();

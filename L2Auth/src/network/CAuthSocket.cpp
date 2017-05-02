@@ -54,7 +54,7 @@ CAuthSocket::CAuthSocket(SOCKET socket)
     , m_decrypt_handler()
     , m_packetSize()
     , m_field_136()
-    , m_socketTimeoutTimer(nullptr)
+    , m_socketTimeoutTimer(NULL)
     , m_status(SocketStatus_Init)
     , m_packetHandlers(CAuthSocket::handlers)
     , m_clientIP()
@@ -97,7 +97,7 @@ bool CAuthSocket::Send(SOCKET socket, const char* format, ...)  // 0x00410A93
     va_list va;
     va_start(va, format);
     CAuthSocket* authSock = g_authServer.FindSocket(socket);
-    if (authSock == nullptr)
+    if (authSock == NULL)
     {
         return false;
     }
@@ -336,7 +336,7 @@ void NTAPI CAuthSocket::SocketExTimerCallback(PVOID param, BOOLEAN)  // 0x004396
 {
     SOCKET socket = (SOCKET)(param);
     CAuthSocket* userSocket = g_authServer.FindSocket(socket);
-    if (userSocket != nullptr)
+    if (userSocket != NULL)
     {
         userSocket->OnTimerCallback();
     }
@@ -544,7 +544,7 @@ bool CAuthSocket::packet00_RequestAuthLogin(CAuthSocket* authSock, uint8_t* buff
     userInfo->payStat = userTable.payStat;
     userInfo->gameSocket = authSock->m_hSocket;
     userInfo->sexAndCentury = userTable.sexAndCentury;
-    userInfo->timerHandler = nullptr;
+    userInfo->timerHandler = NULL;
     userInfo->loginState = LoginState_Connected;
     userInfo->birthdayEncoded = userTable.birthdayEncoded;
     userInfo->restOfSsn = userTable.restOfSsn;

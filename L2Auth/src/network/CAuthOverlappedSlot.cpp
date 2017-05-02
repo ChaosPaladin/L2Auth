@@ -4,7 +4,7 @@ CAuthOverlappedSlot::CAuthOverlappedSlot()
     : m_data()
     , m_lock(LockType_WaitLock, 0)
 {
-    m_data.overlapped = nullptr;
+    m_data.overlapped = NULL;
 }
 
 CAuthOverlappedSlot::~CAuthOverlappedSlot()

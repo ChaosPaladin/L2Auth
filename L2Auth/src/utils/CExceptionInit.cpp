@@ -68,7 +68,7 @@ LONG CExceptionInit::exception_filter(_EXCEPTION_POINTERS* ex)
 
     CExceptionInit::enterCritSection();
 
-    if (CExceptionInit::s_mailServerIP == nullptr)
+    if (CExceptionInit::s_mailServerIP == NULL)
     {
         ::DeleteFileA(CExceptionInit::s_logPath);
     }
@@ -124,7 +124,7 @@ void CExceptionInit::logException(const char* format, ...)
             for (int i = 0; i < len; i += 2)
             {
                 char* newLine = (char*)std::memchr(&buffer[i], '\n', len - i);
-                if (newLine == nullptr)
+                if (newLine == NULL)
                 {
                     break;
                 }
@@ -156,7 +156,7 @@ void CExceptionInit::sendExceptionLog(bool fatal)
     }
 
     CExceptionInit::enterCritSection();
-    if ((CExceptionInit::s_mailServerIP != nullptr) && CExceptionInit::sendMail(CExceptionInit::s_mailServerIP, "server@ncsoft.co.kr", "darkangel@ncsoft.co.kr", CExceptionInit::s_logPath))
+    if ((CExceptionInit::s_mailServerIP != NULL) && CExceptionInit::sendMail(CExceptionInit::s_mailServerIP, "server@ncsoft.co.kr", "darkangel@ncsoft.co.kr", CExceptionInit::s_logPath))
     {
         ::DeleteFileA(CExceptionInit::s_logPath);
     }
@@ -178,7 +178,7 @@ void CExceptionInit::SetUpExceptionFilter()
 // 0x00417B55
 void CExceptionInit::Init()
 {
-    if (CExceptionInit::s_mailServerIP == nullptr)
+    if (CExceptionInit::s_mailServerIP == NULL)
     {
         return;
     }
@@ -199,7 +199,7 @@ void CExceptionInit::Init()
 // 0x004176A7
 void CExceptionInit::ClearExceptionFilter()
 {
-    if (CExceptionInit::s_oldFilter != nullptr)
+    if (CExceptionInit::s_oldFilter != NULL)
     {
         ::SetUnhandledExceptionFilter(CExceptionInit::s_oldFilter);
     }
@@ -225,14 +225,14 @@ LONG WINAPI CExceptionInit::RecordExceptionInfo(_EXCEPTION_POINTERS* exceptionIn
     {
         CExceptionInit::enterCritSection();
 
-        if (CExceptionInit::s_mailServerIP == nullptr)
+        if (CExceptionInit::s_mailServerIP == NULL)
         {
             ::DeleteFileA(CExceptionInit::s_logPath);
         }
 
         CoreDump::createReport(exceptionInfo);
 
-        if ((CExceptionInit::s_mailServerIP != nullptr) && CExceptionInit::sendMail(CExceptionInit::s_mailServerIP, "server@ncsoft.co.kr", "darkangel@ncsoft.co.kr", CExceptionInit::s_logPath))
+        if ((CExceptionInit::s_mailServerIP != NULL) && CExceptionInit::sendMail(CExceptionInit::s_mailServerIP, "server@ncsoft.co.kr", "darkangel@ncsoft.co.kr", CExceptionInit::s_logPath))
         {
             ::DeleteFileA(CExceptionInit::s_logPath);
         }
@@ -306,7 +306,7 @@ bool CExceptionInit::sendMail(const char* ipAddress, const char* mailFrom, const
     if (ipAddress[0] < '0' || '9' < ipAddress[0])  // TODO: isalpha/isnum
     {
         hostent* host = ::gethostbyname(ipAddress);
-        if (host == nullptr)
+        if (host == NULL)
         {
             ::closesocket(socket);
             ::WSACleanup();

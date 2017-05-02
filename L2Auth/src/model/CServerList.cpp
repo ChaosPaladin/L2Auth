@@ -26,7 +26,7 @@ CServerList::CServerList()
 
     for (int i = 0; i < 10; ++i)
     {
-        m_frameLists[i] = nullptr;
+        m_frameLists[i] = NULL;
         m_frameSizes[i] = 0;
     }
 }
@@ -36,7 +36,7 @@ CServerList::~CServerList()
 {
     for (int i = 1; i < 10; ++i)  // TODO: 0 is not deleted?
     {
-        if (m_frameLists[i] != nullptr)
+        if (m_frameLists[i] != NULL)
         {
             delete[] m_frameLists[i];
         }
@@ -199,7 +199,7 @@ void CServerList::ReloadServer()
             char* str = fgets(buffer, sizeof(buffer), file);
             int server_index = 0;
 
-            while ((str != nullptr) || !feof(file))
+            while ((str != NULL) || !feof(file))
             {
                 if (strlen(buffer) <= 10)
                 {
@@ -511,8 +511,8 @@ void CServerList::MakeServerListFrame2()
         iter += 5;
     }
 
-    char* old = nullptr;
-    if (m_frameLists[FrameType_Extended] != nullptr)
+    char* old = NULL;
+    if (m_frameLists[FrameType_Extended] != NULL)
     {
         old = m_frameLists[FrameType_Extended];
     }
@@ -520,7 +520,7 @@ void CServerList::MakeServerListFrame2()
     m_frameSizes[FrameType_Extended] = 56 * m_serverNumber + 2;
     m_frameLists[FrameType_Extended] = buffer;
 
-    if (old != nullptr)
+    if (old != NULL)
     {
         delete[] old;
     }
@@ -569,8 +569,8 @@ void CServerList::MakeServerListFrame3()
         iter = iter + 4;                      // d          serverKind     18-21
     }
 
-    char* old = nullptr;
-    if (m_frameLists[FrameType_WithKind] != nullptr)
+    char* old = NULL;
+    if (m_frameLists[FrameType_WithKind] != NULL)
     {
         old = m_frameLists[FrameType_WithKind];
     }
@@ -578,7 +578,7 @@ void CServerList::MakeServerListFrame3()
     m_frameSizes[FrameType_WithKind] = 20 * m_serverNumber + 2;
     m_frameLists[FrameType_WithKind] = buffer;
 
-    if (old != nullptr)
+    if (old != NULL)
     {
         delete[] old;
     }

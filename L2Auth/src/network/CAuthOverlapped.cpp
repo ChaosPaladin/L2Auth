@@ -20,7 +20,7 @@ CAuthOverlapped* CAuthOverlapped::Alloc()
     }
     memset(overlapped, 0, sizeof(OVERLAPPED));
     overlapped->acceptSocket = INVALID_SOCKET;
-    overlapped->m_pNext = nullptr;
+    overlapped->m_pNext = NULL;
     return overlapped;
 }
 
@@ -45,7 +45,7 @@ void CAuthOverlapped::FreeAll()
         while (true)
         {
             CAuthOverlapped* overlapped = slot->m_data.overlapped;
-            if (overlapped == nullptr)
+            if (overlapped == NULL)
             {
                 break;
             }

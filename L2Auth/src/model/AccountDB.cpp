@@ -54,7 +54,7 @@ bool AccountDB::SendWantedServerLogout(const char* accName, int uid, int serverI
             packet[19] = serverId;
             time_t now = std::time(0);
             memcpy(&packet[20], &now, 4u);
-            if (g_SocketWanted != nullptr && g_Config.useWantedSystem && !CWantedSocket::isReconnecting)
+            if (g_SocketWanted != NULL && g_Config.useWantedSystem && !CWantedSocket::isReconnecting)
             {
                 g_winlog.AddLog(LOG_DBG, "Wanted User LogOut, %s", accName);
                 CWantedSocket::s_lock.ReadLock();
@@ -859,7 +859,7 @@ bool AccountDB::recordGamePlayTime(int uid, int serverId)
         Utils::WriteLogD(802, accName, connectedIP, payStat, age, sexAndCentury, 0, g_reporter.loggedUsers, uid);
     }
 
-    if (g_SocketWanted != nullptr && g_Config.useWantedSystem && (warnFlag & 4) == 4 && success)
+    if (g_SocketWanted != NULL && g_Config.useWantedSystem && (warnFlag & 4) == 4 && success)
     {
         char buffer[28];
         memset(buffer, 0, sizeof(buffer));
@@ -939,7 +939,7 @@ bool AccountDB::quitGamePlay(int uid, int serverId)
 // 0x00404A52
 PlayFail AccountDB::AboutToPlay(int uid, char* accName, int totalTime, int loginFlag, int warnFlag, int sessionKey, CAuthSocket* gameClient, signed int serverId, int payStat)
 {
-    if (!ServersProvider::GetServerStatus(serverId) && gameClient != nullptr)
+    if (!ServersProvider::GetServerStatus(serverId) && gameClient != NULL)
     {
         gameClient->Send("cc", LS_PlayFail, PLAY_FAIL_GS_ERROR);
         return PLAY_FAIL_GS_ERROR;
@@ -955,7 +955,7 @@ PlayFail AccountDB::AboutToPlay(int uid, char* accName, int totalTime, int login
         ::SQLBindCol(sql.getHandler(), 1u, SQL_C_BINARY, userData, sizeof(userData), &len);
 
         sql.Execute("SELECT user_data FROM user_data with (nolock) WHERE  uid = %d", uid);
-        sql.Fetch(nullptr);
+        sql.Fetch(NULL);
 
         if (serverId <= g_serverList.m_serverNumber && serverId >= 1)
         {
@@ -969,7 +969,7 @@ PlayFail AccountDB::AboutToPlay(int uid, char* accName, int totalTime, int login
         success = WorldSrvServer::SendSocket(worldServer.ipAddress, "cdsdddd", 0, uid, accName, totalTime, loginFlag, warnFlag, payStat);
     }
 
-    if (gameClient != nullptr)
+    if (gameClient != NULL)
     {
         if (success)
         {

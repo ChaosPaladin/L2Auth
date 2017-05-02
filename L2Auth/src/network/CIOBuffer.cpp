@@ -48,7 +48,7 @@ CIOBuffer* CIOBuffer::Alloc()
 
     newBuffer->m_dwSize = 0;
     newBuffer->m_nRefCount = 1;
-    newBuffer->m_pNext = nullptr;
+    newBuffer->m_pNext = NULL;
 
     return newBuffer;
 }
@@ -74,7 +74,7 @@ void CIOBuffer::FreeAll()
         while (true)
         {
             CIOBuffer* pBuffer = slot->m_pBuffer;
-            if (slot->m_pBuffer == nullptr)
+            if (slot->m_pBuffer == NULL)
             {
                 break;
             }

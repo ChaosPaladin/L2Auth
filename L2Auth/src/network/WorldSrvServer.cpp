@@ -20,7 +20,7 @@ WorldSrvServer::WorldSrvServer()
     : CIOServer()
     , m_sockets()
     , m_lock()
-    , m_factoryMethod(nullptr)
+    , m_factoryMethod(NULL)
 {
     ::InitializeCriticalSectionAndSpinCount(&m_lock, 4000u);
 }
@@ -41,13 +41,13 @@ CIOSocket* WorldSrvServer::CreateSocket(SOCKET socket, sockaddr_in* clientAddres
     {
         g_winlog.AddLog(LOG_ERR, "non-registered world server %d.%d.%d.%d", clientAddress->sin_addr.S_un.S_un_b.s_b1, clientAddress->sin_addr.S_un.S_un_b.s_b2, clientAddress->sin_addr.S_un.S_un_b.s_b3, clientAddress->sin_addr.S_un.S_un_b.s_b4);
 
-        return nullptr;
+        return NULL;
     }
 
     if (serverId == -1)
     {
         g_winlog.AddLog(LOG_ERR, "ip: %d.%d.%d.%d world server socket already used", clientAddress->sin_addr.S_un.S_un_b.s_b1, clientAddress->sin_addr.S_un.S_un_b.s_b2, clientAddress->sin_addr.S_un.S_un_b.s_b3, clientAddress->sin_addr.S_un.S_un_b.s_b4);
-        return nullptr;
+        return NULL;
     }
 
     WorldSrvSocket* worldSocket = (*m_factoryMethod)(socket);
@@ -62,7 +62,7 @@ CIOSocket* WorldSrvServer::CreateSocket(SOCKET socket, sockaddr_in* clientAddres
 }
 
 // 0x004188A6
-bool WorldSrvServer::Run(int port, WorldSrvSocketFactory* factoryMethod)
+bool WorldSrvServer::Run(int port, WorldSrvSocketFactory factoryMethod)
 {
     m_factoryMethod = factoryMethod;
     if (CIOServer::Create(port))
@@ -78,7 +78,7 @@ bool WorldSrvServer::Run(int port, WorldSrvSocketFactory* factoryMethod)
 // 0x004188F9
 WorldSrvSocket* WorldSrvServer::FindSocket(int ipAddress) const
 {
-    WorldSrvSocket* socket = nullptr;
+    WorldSrvSocket* socket = NULL;
 
     ::EnterCriticalSection(&m_lock);
 
@@ -137,7 +137,7 @@ bool WorldSrvServer::SendSocket(int ipAddress, const char* format, ...)
     va_start(va, format);
 
     WorldSrvSocket* worldSocket = g_worldServServer.FindSocket(ipAddress);
-    if (worldSocket == nullptr)
+    if (worldSocket == NULL)
     {
         return false;
     }

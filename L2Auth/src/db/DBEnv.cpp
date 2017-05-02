@@ -21,8 +21,8 @@ DBEnv::DBEnv()
     : CIOObject()
     , spinLock(LockType_WaitLock, 0)
     , sqlEnvHandle(SQL_NULL_HANDLE)
-    , sqlConnections(nullptr)
-    , connectionsHead(nullptr)
+    , sqlConnections(NULL)
+    , connectionsHead(NULL)
     , connectionNumber(0)
     , recoveryTriggered(false)
 {
@@ -39,7 +39,7 @@ DBEnv::~DBEnv()
     if (sqlConnections)
     {
         delete[] sqlConnections;
-        sqlConnections = nullptr;
+        sqlConnections = NULL;
     }
 }
 
@@ -73,7 +73,7 @@ bool DBEnv::Login(bool reconnect)
 {
     if (!LoadConnStrFromReg())
     {
-        ::DialogBoxParamA(hInstance, MAKEINTRESOURCE(DLG_DB_CONNECTION), nullptr, &DBEnv::LoginDlgProc, (LPARAM)this);
+        ::DialogBoxParamA(hInstance, MAKEINTRESOURCE(DLG_DB_CONNECTION), NULL, &DBEnv::LoginDlgProc, (LPARAM)this);
     }
 
     SQLHANDLE dbcHandler;
@@ -100,7 +100,7 @@ bool DBEnv::Login(bool reconnect)
         SQLCHAR szConnStrOut[1024];
         SQLSMALLINT pcchConnStrOut;
         int len = strlen(connectionStr);
-        sqlResult = ::SQLDriverConnect(dbcHandler, nullptr, (SQLCHAR*)connectionStr, len, szConnStrOut, sizeof(szConnStrOut), &pcchConnStrOut, 0);
+        sqlResult = ::SQLDriverConnect(dbcHandler, NULL, (SQLCHAR*)connectionStr, len, szConnStrOut, sizeof(szConnStrOut), &pcchConnStrOut, 0);
 
         if (sqlResult == SQL_SUCCESS || sqlResult == SQL_SUCCESS_WITH_INFO)
         {
@@ -109,7 +109,7 @@ bool DBEnv::Login(bool reconnect)
 
         if (!reconnect)
         {
-            ::DialogBoxParamA(hInstance, MAKEINTRESOURCE(DLG_DB_CONNECTION), nullptr, &DBEnv::LoginDlgProc, (LPARAM)this);
+            ::DialogBoxParamA(hInstance, MAKEINTRESOURCE(DLG_DB_CONNECTION), NULL, &DBEnv::LoginDlgProc, (LPARAM)this);
         }
     }
 
@@ -124,7 +124,7 @@ void DBEnv::AllocSQLPool()
 {
     for (int i = 0; i < connectionNumber; ++i)
     {
-        sqlConnections[i].prevConnection = nullptr;
+        sqlConnections[i].prevConnection = NULL;
         SQLRETURN sqlResult = ::SQLAllocHandle(SQL_HANDLE_DBC, sqlEnvHandle, &sqlConnections[i].dbcSqlHandler);
         if (sqlResult != SQL_SUCCESS && sqlResult != SQL_SUCCESS_WITH_INFO)
         {
@@ -141,7 +141,7 @@ void DBEnv::AllocSQLPool()
 
             SQLCHAR szConnStrOut[1024];
             SQLSMALLINT pcchConnStrOut;
-            sqlResult = ::SQLDriverConnect(sqlConnections[i].dbcSqlHandler, nullptr, (SQLCHAR*)connectionStr, len, szConnStrOut, 1024, &pcchConnStrOut, 0);
+            sqlResult = ::SQLDriverConnect(sqlConnections[i].dbcSqlHandler, NULL, (SQLCHAR*)connectionStr, len, szConnStrOut, 1024, &pcchConnStrOut, 0);
 
             if (sqlResult != SQL_SUCCESS && sqlResult != SQL_SUCCESS_WITH_INFO)
             {
@@ -180,7 +180,7 @@ void DBEnv::AllocSQLPool()
 
         if (sqlConnections[i].stmtSqlHandler != SQL_NULL_HANDLE)
         {
-            if (connectionsHead != nullptr)
+            if (connectionsHead != NULL)
             {
                 sqlConnections[i].prevConnection = connectionsHead;
                 connectionsHead = &sqlConnections[i];
@@ -217,7 +217,7 @@ void DBEnv::Destroy()
 // 0x00413B7E
 bool DBEnv::LoadConnStrFromReg()
 {
-    const char* valueName = nullptr;
+    const char* valueName = NULL;
     if (g_Config.gameID != 8 && g_Config.gameID != 0x10 && g_Config.gameID != 0x20)
     {
         if (g_Config.gameID == 4)
@@ -257,7 +257,7 @@ bool DBEnv::LoadConnStrFromReg()
 // 0x00413C76
 void DBEnv::SaveConnStrToReg()
 {
-    const char* valueName = nullptr;
+    const char* valueName = NULL;
     if (g_Config.gameID != 8 && g_Config.gameID != 0x10 && g_Config.gameID != 0x20)
     {
         if (g_Config.gameID == 4)
@@ -338,7 +338,7 @@ void DBEnv::OnEventCallback()
 // 0x00413FD9
 BOOL CALLBACK DBEnv::LoginDlgProc(HWND hDlg, UINT msgType, WPARAM wparam, LPARAM lparam)
 {
-    static DBEnv* instance = nullptr;
+    static DBEnv* instance = NULL;
 
     if (msgType == WM_INITDIALOG)
     {

@@ -80,7 +80,7 @@ unsigned int __stdcall Threading::ListenThread(void*)
     g_authServer.Stop();
     g_CIOServerInt.Close();
 
-    if (g_IPSocket != nullptr)
+    if (g_IPSocket != NULL)
     {
         IPSocket::s_lock.WriteLock();
 
@@ -93,7 +93,7 @@ unsigned int __stdcall Threading::ListenThread(void*)
         IPSocket::s_lock.WriteUnlock();
     }
 
-    if (g_LogDSocket != nullptr)
+    if (g_LogDSocket != NULL)
     {
         CLogSocket::s_lock.WriteLock();
 
@@ -142,8 +142,8 @@ unsigned int __stdcall Threading::IOThreadServer(void*)
     while (!Threading::g_bTerminating)
     {
         DWORD dwTransferred = 0;
-        OVERLAPPED* overlapped = nullptr;
-        CIOObject* pObject = nullptr;
+        OVERLAPPED* overlapped = NULL;
+        CIOObject* pObject = NULL;
         BOOL success = ::GetQueuedCompletionStatus(Threading::g_hCompletionPort, &dwTransferred, (PULONG_PTR)&pObject, &overlapped, INFINITE);
 
         ::InterlockedIncrement(&CReporter::g_nRunningThread);
@@ -171,10 +171,10 @@ unsigned int __stdcall Threading::IOThreadInt(void*)
     while (!Threading::g_bTerminating)
     {
         DWORD dwTransferred = 0;
-        OVERLAPPED* overlapped = nullptr;
-        CIOObject* pObject = nullptr;
+        OVERLAPPED* overlapped = NULL;
+        CIOObject* pObject = NULL;
         BOOL success = ::GetQueuedCompletionStatus(Threading::g_hCompletionPortExtra, &dwTransferred, (PULONG_PTR)&pObject, &overlapped, INFINITE);
-        if (pObject != nullptr)  // FIXED: crash in debug, at exit
+        if (pObject != NULL)  // FIXED: crash in debug, at exit
         {
             pObject->OnIOCallback(success, dwTransferred, overlapped);
         }

@@ -225,7 +225,7 @@ int __stdcall WinMain(HINSTANCE instance, HINSTANCE /*hPrevInstance*/, LPSTR /*l
             g_blockedIPs.Load("etc\\BlockIPs.txt");
         }
 
-        if ((g_Config.mailServer != nullptr) && (::strlen(g_Config.mailServer) != 0))
+        if ((g_Config.mailServer != NULL) && (::strlen(g_Config.mailServer) != 0))
         {
             if (g_MailService.Init())
             {
@@ -308,7 +308,7 @@ int __stdcall WinMain(HINSTANCE instance, HINSTANCE /*hPrevInstance*/, LPSTR /*l
             }
         }
         unsigned int threadId;
-        hObject = (HANDLE)_beginthreadex(nullptr, 0, &Threading::ListenThread, (void*)0, 0, &threadId);
+        hObject = (HANDLE)_beginthreadex(NULL, 0, &Threading::ListenThread, (void*)0, 0, &threadId);
         g_serverKind.LoadServerList();
     }
     else

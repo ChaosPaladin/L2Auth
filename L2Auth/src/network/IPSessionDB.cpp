@@ -56,7 +56,7 @@ bool IPSessionDB::AddUserWait(int uid, LoginUser* userInfo)
 
     if (!inserted.second)
     {
-        LoginUser* user = nullptr;
+        LoginUser* user = NULL;
         IPSessionDB::DelUserWait(uid, &user);  // TODO mem leak
     }
 
@@ -139,11 +139,11 @@ char IPSessionDB::AcquireSessionRequest(LoginUser* userInfo, int uid)
         return 11;  // fail
     }
 
-    if (g_IPSocket != nullptr && !IPSocket::isReconnecting && g_Config.useIPServer)
+    if (g_IPSocket != NULL && !IPSocket::isReconnecting && g_Config.useIPServer)
     {
         if (!g_IPSocket->Send("csddd", 2, userInfo->accountName, userInfo->connectedIP, g_Config.gameID, uid))
         {
-            LoginUser* user = nullptr;
+            LoginUser* user = NULL;
             DelUserWait(uid, &user);  // mem leak? Caller deletes it
             return 10;                // TODO: CAuthSocket doesn't handle 10
         }
@@ -151,7 +151,7 @@ char IPSessionDB::AcquireSessionRequest(LoginUser* userInfo, int uid)
         return 0;
     }
 
-    LoginUser* user = nullptr;
+    LoginUser* user = NULL;
     DelUserWait(uid, &user);
     return 10;
 }
@@ -166,7 +166,7 @@ void IPSessionDB::ReleaseSessionRequest(int sessionKey, in_addr clientIP, int pa
 
     if (g_Config.useIPServer && !IPSocket::isReconnecting)
     {
-        if (g_IPSocket != nullptr)
+        if (g_IPSocket != NULL)
         {
             IPSocket::s_lock.ReadLock();
             g_IPSocket->Send("cddddd", 3, sessionKey, g_IPSocket->m_connectSessionKey, g_Config.gameID, clientIP, payStat);
@@ -178,17 +178,17 @@ void IPSessionDB::ReleaseSessionRequest(int sessionKey, in_addr clientIP, int pa
 // 0x004251D0
 char IPSessionDB::AcquireSessionSuccess(int uid, int sessionKey, bool defaultResut, int totalTime, int payStat)
 {
-    LoginUser* userInfo = nullptr;
+    LoginUser* userInfo = NULL;
     DelUserWait(uid, &userInfo);
 
-    if (userInfo == nullptr)
+    if (userInfo == NULL)
     {
         ReleaseSessionRequest(sessionKey, {0}, payStat);
         return true;
     }
 
     CAuthSocket* gameClient = g_authServer.FindSocket(userInfo->gameSocket);
-    if (gameClient == nullptr)
+    if (gameClient == NULL)
     {
         ReleaseSessionRequest(sessionKey, userInfo->connectedIP, payStat);
         delete userInfo;
@@ -220,16 +220,16 @@ LoginFailReason IPSessionDB::AcquireSessionFail(int uid, int a3, LoginFailReason
 {
     UNUSED(a3);
 
-    LoginUser* userInfo = nullptr;
+    LoginUser* userInfo = NULL;
     DelUserWait(uid, &userInfo);
 
-    if (userInfo == nullptr)
+    if (userInfo == NULL)
     {
         return REASON_SYSTEM_ERROR_LOGIN_LATER;
     }
 
     CAuthSocket* gameClient = g_authServer.FindSocket(userInfo->gameSocket);
-    if (gameClient == nullptr)
+    if (gameClient == NULL)
     {
         delete userInfo;
         return status;
@@ -255,7 +255,7 @@ LoginFailReason IPSessionDB::AcquireSessionFail(int uid, int a3, LoginFailReason
 char IPSessionDB::StartIPCharge(int uid, int a2, int a3, char a4)
 {
     int sessionKey = FindSessionID(uid);
-    if (g_IPSocket != nullptr && !IPSocket::isReconnecting && g_Config.useIPServer && sessionKey != 0)
+    if (g_IPSocket != NULL && !IPSocket::isReconnecting && g_Config.useIPServer && sessionKey != 0)
     {
         IPSocket::s_lock.ReadLock();
         bool success = g_IPSocket->Send("cdddcdd", 4, sessionKey, g_IPSocket->m_connectSessionKey, uid, a4, a2, a3);
@@ -280,7 +280,7 @@ char IPSessionDB::StopIPCharge(int uid, in_addr connectedIp, int payStatus, time
         return 10;
     }
 
-    if (g_Config.useIPServer && (sessionKey != 0) && (g_IPSocket != nullptr) && !IPSocket::isReconnecting)
+    if (g_Config.useIPServer && (sessionKey != 0) && (g_IPSocket != NULL) && !IPSocket::isReconnecting)
     {
         IPSocket::s_lock.ReadLock();
         bool success = g_IPSocket->Send("cddddcddsd", 5, g_IPSocket->m_connectSessionKey, sessionKey, connectedIp, payStatus, serverId, usedTime, (int)loginTime, accName, g_Config.gameID);
@@ -307,7 +307,7 @@ char IPSessionDB::ReadyToIPCharge(int uid, in_addr ipAddress, int payStat, char 
         return 10;        // FIXED
     }
 
-    if ((g_IPSocket != nullptr) && !IPSocket::isReconnecting && g_Config.useIPServer && (sessionKey != 0))
+    if ((g_IPSocket != NULL) && !IPSocket::isReconnecting && g_Config.useIPServer && (sessionKey != 0))
     {
         IPSocket::s_lock.ReadLock();
         bool success = g_IPSocket->Send("cdddcdd", 9, sessionKey, g_IPSocket->m_connectSessionKey, uid, serverId, ipAddress, payStat);
@@ -331,7 +331,7 @@ char IPSessionDB::ConfirmIPCharge(int uid, in_addr connectedIP, int payStat, cha
         return 10;        // FIXED
     }
 
-    if ((g_IPSocket != nullptr) && !IPSocket::isReconnecting && g_Config.useIPServer && (sessionKey != 0))
+    if ((g_IPSocket != NULL) && !IPSocket::isReconnecting && g_Config.useIPServer && (sessionKey != 0))
     {
         IPSocket::s_lock.ReadLock();
         bool success = g_IPSocket->Send("cdddcdd", 10, sessionKey, g_IPSocket->m_connectSessionKey, uid, serverId, connectedIP, payStat);

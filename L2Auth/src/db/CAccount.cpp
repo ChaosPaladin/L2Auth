@@ -12,7 +12,7 @@
 #include <cstring>
 #include <ctime>
 
-void (*CAccount::g_pwdCrypt)(char*) = nullptr;
+void (*CAccount::g_pwdCrypt)(char*) = NULL;
 
 // 0x00401000
 CAccount::CAccount()

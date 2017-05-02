@@ -28,13 +28,13 @@ ServerKind::~ServerKind()
             if (m_serverFrames[frameType][serverKindIndex])
             {
                 ServerPacketList* frameList = m_serverFrames[frameType][serverKindIndex];
-                if (frameList != nullptr)
+                if (frameList != NULL)
                 {
                     delete frameList;
                 }
             }
         }
-        if (m_serverFrames[frameType] != nullptr)
+        if (m_serverFrames[frameType] != NULL)
         {
             delete[] m_serverFrames[frameType];
         }
@@ -75,7 +75,7 @@ void ServerKind::LoadServerList()
                 for (int frameType = FrameType_DefaultOrCompressed; frameType < FrameType_Compressed; ++frameType)
                 {
                     m_serverFrames[frameType] = new ServerPacketList*[m_serverKindsCount];
-                    if (m_serverFrames[frameType] == nullptr)
+                    if (m_serverFrames[frameType] == NULL)
                     {
                         g_winlog.AddLog(LOG_ERR, "Load ServerKindList Memory Allocation Fail");
                         success = false;
@@ -86,7 +86,7 @@ void ServerKind::LoadServerList()
                     for (int serverKind = 0; serverKind < m_serverKindsCount; ++serverKind)
                     {
                         m_serverFrames[frameType][serverKind] = new ServerPacketList();
-                        if (m_serverFrames[frameType][serverKind] == nullptr)
+                        if (m_serverFrames[frameType][serverKind] == NULL)
                         {
                             g_winlog.AddLog(LOG_ERR, "Load ServerKindList Memory Allocation Fail");
                             return;
@@ -209,7 +209,7 @@ void ServerKind::ReloadServerList()
                     for (int frameType = FrameType_DefaultOrCompressed; frameType < FrameType_Compressed; ++frameType)
                     {
                         frameLists[frameType] = new ServerPacketList*[serverKindsCount];
-                        if (frameLists[frameType] == nullptr)
+                        if (frameLists[frameType] == NULL)
                         {
                             g_winlog.AddLog(LOG_ERR, "Reload ServerKindList Fail!, Memory Allocation Fail");
                             return;
@@ -217,7 +217,7 @@ void ServerKind::ReloadServerList()
 
                         for (int serverKindIndex = 0; serverKindIndex < m_serverKindsCount; ++serverKindIndex)
                         {
-                            if (m_serverFrames[frameType][serverKindIndex] != nullptr)
+                            if (m_serverFrames[frameType][serverKindIndex] != NULL)
                             {
                                 frameLists[frameType][serverKindIndex] = m_serverFrames[frameType][serverKindIndex];
                             }
@@ -285,7 +285,7 @@ void ServerKind::ReloadServerList()
 
                         for (int frameType = 0; frameType < 4; ++frameType)
                         {
-                            if (serverFrames[frameType] != nullptr)
+                            if (serverFrames[frameType] != NULL)
                             {
                                 delete[] serverFrames[frameType];
                             }
@@ -423,7 +423,7 @@ void ServerKind::SetServerStatus(int serverId, bool status)
         {
             for (int serverKindIndex = 0; serverKindIndex < m_serverKindsCount; ++serverKindIndex)
             {
-                if (m_serverFrames[frameType][serverKindIndex] != nullptr)
+                if (m_serverFrames[frameType][serverKindIndex] != NULL)
                 {
                     m_serverFrames[frameType][serverKindIndex]->SetServerStatus(serverId, status);
                 }
@@ -441,7 +441,7 @@ void ServerKind::SetServerUserNum(int serverId, uint16_t usersOnline, uint16_t u
         {
             for (int serverKindIndex = 0; serverKindIndex < m_serverKindsCount; ++serverKindIndex)
             {
-                if (m_serverFrames[frameType][serverKindIndex] != nullptr)
+                if (m_serverFrames[frameType][serverKindIndex] != NULL)
                 {
                     m_serverFrames[frameType][serverKindIndex]->SetServerUserNum(serverId, usersOnline, usersLimit);
                 }
@@ -474,11 +474,11 @@ void ServerKind::MakeServerListFrame()
 
         tempFrameList.SetServerCount();
 
-        char* buffer = nullptr;
+        char* buffer = NULL;
         int buffSize = tempFrameList.GetServerPacketList(&buffer);
-        if (buffSize > 0 && buffer != nullptr)
+        if (buffSize > 0 && buffer != NULL)
         {
-            if (m_serverFrames[frameType][serverKind] != nullptr)
+            if (m_serverFrames[frameType][serverKind] != NULL)
             {
                 success = m_serverFrames[frameType][serverKind]->ExchangeServePacketList((FrameType)frameType, serverKind, buffSize, buffer);
             }
@@ -514,7 +514,7 @@ void ServerKind::MakeServerListFrame()
                 tempFrameList.SetServerCount();
                 char* buffer = 0;
                 int buffSize = tempFrameList.GetServerPacketList(&buffer);
-                if (buffSize > 0 && buffer != nullptr && m_serverFrames[frameType][serverKindIndex])
+                if (buffSize > 0 && buffer != NULL && m_serverFrames[frameType][serverKindIndex])
                 {
                     success = m_serverFrames[frameType][serverKindIndex]->ExchangeServePacketList((FrameType)frameType, serverKindIndex, buffSize, buffer);
                 }
@@ -544,7 +544,7 @@ void ServerKind::CheckAllServerStatus()
             {
                 for (int serverKind = 0; serverKind < m_serverKindsCount; ++serverKind)
                 {
-                    if (m_serverFrames[frameType][serverKind] != nullptr)
+                    if (m_serverFrames[frameType][serverKind] != NULL)
                     {
                         m_serverFrames[frameType][serverKind]->SetServerStatus(servIndex, true);
                     }

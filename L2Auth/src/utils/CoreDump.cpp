@@ -317,7 +317,7 @@ void CoreDump::writeModules(HANDLE hFile)  // 0x0041703B
     int pagesPerGb = 1024u * 1024u * 1024u / systemInfo.dwPageSize;
     int pageCount = 4u * pagesPerGb;  // 4 GB / pageSize => TODO: x64
     int pageIndex = 0;
-    void* baseAddress = nullptr;
+    void* baseAddress = NULL;
     while (true)
     {
         if (pageIndex >= pageCount)

@@ -34,7 +34,7 @@ bool SendMail::Init()
     {
         hostent* host = gethostbyname(g_Config.mailServer);
         // FIXED: if no network connection, returns null
-        if (host == nullptr)
+        if (host == NULL)
         {
             return false;
         }
@@ -425,7 +425,7 @@ bool SendMail::PacketQuit()
 // 0x00432BD3
 char* SendMail::PrintErrorMessage(DWORD dwMessageId, char* message)
 {
-    char* buffer = nullptr;
+    char* buffer = NULL;
     DWORD size = ::FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_ARGUMENT_ARRAY | FORMAT_MESSAGE_FROM_SYSTEM, 0, dwMessageId, 0, (LPSTR)&buffer, 0, 0);
     if (size != 0 && ((size + 14) <= 1024))
     {

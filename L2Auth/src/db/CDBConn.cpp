@@ -110,7 +110,7 @@ void CDBConn::Error(SQLSMALLINT handlerType, SQLHANDLE handler, const char* sqlQ
     SQLRETURN sqlResult = ::SQLGetDiagRec(handlerType, handler, 1, (SQLCHAR*)sqlState, &nativeError, errorText, 256, &textLength);
     if (sqlResult == SQL_SUCCESS)
     {
-        if (sqlQuery != nullptr)
+        if (sqlQuery != NULL)
         {
             g_winlog.AddLog(LOG_ERR, "sql: %s", sqlQuery);
         }

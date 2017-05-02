@@ -719,7 +719,7 @@ bool WorldSrvSocket::packet20_getServerList(WorldSrvSocket* worldSrvSocket, uint
 {
     int size = 0;
     char packetBuffer[2048];
-    char* buff = nullptr;
+    char* buff = NULL;
 
     if (g_Config.newServerList)
     {

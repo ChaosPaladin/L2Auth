@@ -11,7 +11,7 @@ CIOServerInt g_CIOServerInt;
 CIOServerInt::CIOServerInt()
     : CIOServer()
     , m_lock()
-    , m_factoryMethod(nullptr)
+    , m_factoryMethod(NULL)
 {
     ::InitializeCriticalSectionAndSpinCount(&m_lock, 4000u);
 }
@@ -41,7 +41,7 @@ void CIOServerInt::OnIOCallback(BOOL /*bSuccess*/, DWORD /*dwTransferred*/, LPOV
     }
 
     CIOSocket* socket = CreateSocket(newSocket, &clientAddress);
-    if (socket == nullptr)
+    if (socket == NULL)
     {
         ::closesocket(newSocket);
         return;
@@ -51,7 +51,7 @@ void CIOServerInt::OnIOCallback(BOOL /*bSuccess*/, DWORD /*dwTransferred*/, LPOV
 }
 
 // 0x00418BF7
-void CIOServerInt::Run(int port, CSocketIntFactory* factoryMethod)
+void CIOServerInt::Run(int port, CSocketIntFactory factoryMethod)
 {
     m_factoryMethod = factoryMethod;
     if (CIOServer::Create(port))

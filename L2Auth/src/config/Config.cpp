@@ -53,11 +53,11 @@ char* Config::LoadBinary(const char* fileName, size_t* outSize, bool extraZero)
         }
 
         _close(file);
-        return nullptr;
+        return NULL;
     }
     else
     {
-        return nullptr;
+        return NULL;
     }
 }
 
@@ -363,7 +363,7 @@ const char* Config::Get(const char* paramName) const
     {
         return it->second.c_str();
     }
-    return nullptr;
+    return NULL;
 }
 
 // 0x0040ACB4
@@ -392,7 +392,7 @@ int Config::GetInt(const char* paramName, int defaultValue) const
 in_addr Config::GetInetAddr(const char* paramName) const
 {
     const char* value = Get(paramName);
-    if (value != nullptr)
+    if (value != NULL)
     {
         in_addr addr;
         addr.s_addr = inet_addr(value);
