@@ -3,6 +3,7 @@ Reverse engineered code of L2OFF server Chronicles-1
 This code is published for STUDY PURPOSE ONLY. If you want use this code, you should contact NCSoft.
 
 **NOTE**: branch "legacy" contains only ORIGINALY decompiled code, with origin bugs, MSVC2008 required to build it.
+
 **NOTE**: All fixes and improvements are going to "develop" branch. **MSVC2013** or higher is required to build it.
 
 ### Consists of 3 parts:
