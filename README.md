@@ -1,9 +1,10 @@
 Reverse engineered code of L2OFF server Chronicles-1
-\b NOTE: \b MSVC2012 or higher is required to build it
+
+**NOTE**: **MSVC2012** or higher is required to build it
 
 This code is published for STUDY PURPOSE ONLY. If you want use this code, you should contact NCSoft.
 
-\b NOTE: branch "legacy" contains only ORIGINALY decompiled code, with origin bugs. All fixes and improvements are going to "develop" branch.
+**NOTE**: branch "legacy" contains only ORIGINALY decompiled code, with origin bugs. All fixes and improvements are going to "develop" branch.
 
 ### Consists of 3 parts:
 * generated/ - directory, which contains IDA (6.8) / Hex-Rays generated decompiled code, which is used as a reference to further creating of compilable code
