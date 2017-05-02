@@ -172,7 +172,7 @@ void CJob::clean()
 {
     for (std::vector<CIOObject*>::iterator i = m_clients.begin(); ; i = m_clients.erase(i))
     {
-        if (i == std::end(m_clients))
+        if (i == m_clients.end())
         {
             break;
         }

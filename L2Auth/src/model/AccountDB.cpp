@@ -413,7 +413,7 @@ PlayFail AccountDB::checkInGame(int uid, int sessionKey) const
 {
     m_spinLock.Enter();
     UserMap::const_iterator it = m_accounts.find(uid);
-    if (it == std::end(m_accounts))
+    if (it == m_accounts.end())
     {
         m_spinLock.Leave();
         return PLAY_FAIL_WRONG_ACC_NAME;

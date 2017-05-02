@@ -83,7 +83,7 @@ WorldSrvSocket* WorldSrvServer::FindSocket(int ipAddress) const
     ::EnterCriticalSection(&m_lock);
 
     Sockets::const_iterator it = m_sockets.find(ipAddress);
-    if (it != std::end(m_sockets))
+    if (it != m_sockets.end())
     {
         socket = it->second;
         socket->AddRef();
@@ -101,7 +101,7 @@ bool WorldSrvServer::GetServerStatus(int ipAddress) const
     ::EnterCriticalSection(&m_lock);
 
     Sockets::const_iterator it = m_sockets.find(ipAddress);
-    if (it != std::end(m_sockets))
+    if (it != m_sockets.end())
     {
         exists = true;
     }
@@ -117,7 +117,7 @@ void WorldSrvServer::RemoveSocket(int ipAddress)
     ::EnterCriticalSection(&m_lock);
 
     Sockets::const_iterator it = m_sockets.find(ipAddress);
-    if (it != std::end(m_sockets))
+    if (it != m_sockets.end())
     {
         m_sockets.erase(it);
     }
