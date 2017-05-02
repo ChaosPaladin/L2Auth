@@ -108,7 +108,7 @@ void Config::Load(const char* fileName)
                             {
                                 std::string configValue(token);
                                 std::string configKey(paramName);
-                                const auto insertResult = values.insert(std::make_pair(configKey, configValue));
+                                const std::pair<Parameters::iterator, bool> insertResult = values.insert(std::make_pair(configKey, configValue));
                                 if (!insertResult.second)
                                 {
                                     g_winlog.AddLog(LOG_ERR, "Insert twice %s at line %d in %s", paramName, lineNumber, fileName);
@@ -358,11 +358,10 @@ bool Config::IsAlpha(char a1)
 // 0x0040AC55
 const char* Config::Get(const char* paramName) const
 {
-    const auto it = values.find(paramName);
+    const Parameters::const_iterator it = values.find(paramName);
     if (it != values.end())
     {
-        const auto& pair = *it;
-        return pair.second.c_str();
+        return it->second.c_str();
     }
     return nullptr;
 }

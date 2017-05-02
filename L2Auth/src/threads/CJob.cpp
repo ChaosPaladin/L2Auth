@@ -170,7 +170,7 @@ void CJob::SetTerminate()
 
 void CJob::clean()
 {
-    for (auto i = std::begin(m_clients);; i = m_clients.erase(i))
+    for (std::vector<CIOObject*>::iterator i = m_clients.begin(); ; i = m_clients.erase(i))
     {
         if (i == std::end(m_clients))
         {

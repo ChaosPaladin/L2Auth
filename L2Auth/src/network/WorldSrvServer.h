@@ -29,7 +29,8 @@ private:
     WorldSrvSocket* FindSocket(int ipAddress) const;  // 0x004188F9
 
 private:
-    std::map<int, WorldSrvSocket*> m_sockets;
+    typedef std::map<int, WorldSrvSocket*> Sockets;
+    Sockets m_sockets;
     mutable CRITICAL_SECTION m_lock;
     WorldSrvSocketFactory* m_factoryMethod;
 };

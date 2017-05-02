@@ -243,7 +243,7 @@ CAuthSocket* CAuthServer::FindSocket(SOCKET socket) const
     CAuthSocket* authSocket = nullptr;
     ::EnterCriticalSection(&m_lock);
 
-    auto it = m_sockets.find(socket);
+    std::map<SOCKET, CAuthSocket*>::const_iterator it = m_sockets.find(socket);
     if (it != std::end(m_sockets))
     {
         authSocket = it->second;

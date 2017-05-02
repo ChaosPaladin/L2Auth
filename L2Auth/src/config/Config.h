@@ -109,7 +109,9 @@ private:
     {
         bool operator()(const std::string& lhs, const std::string& rhs) const;
     };
-    std::map<std::string, std::string, comp> values;
+
+    typedef std::map<std::string, std::string, comp> Parameters;
+    Parameters values;
 };
 
 extern Config g_Config;

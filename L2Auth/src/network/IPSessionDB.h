@@ -33,8 +33,11 @@ private:
     int FindSessionID(int uid) const;                 // 0x00424B6D
 
 private:
-    std::map<int, int> m_sessionKeys;
-    std::map<int, LoginUser*> m_users;
+    typedef std::map<int, int> Sessions;
+    Sessions m_sessionKeys;
+
+    typedef std::map<int, LoginUser*> LoginUsers;
+    LoginUsers m_users;
     mutable CLock m_usersLock;
     mutable CLock m_sessionsLock;
 };

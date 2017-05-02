@@ -32,7 +32,7 @@ bool IPSessionDB::DelUserWait(int uid, LoginUser** userInfo)
 {
     m_usersLock.Enter();
 
-    auto it = m_users.find(uid);
+    LoginUsers::const_iterator it = m_users.find(uid);
     if (it != std::end(m_users))
     {
         *userInfo = it->second;
@@ -70,7 +70,7 @@ int IPSessionDB::FindSessionID(int uid) const
 
     m_sessionsLock.Enter();
 
-    auto it = m_sessionKeys.find(uid);
+    Sessions::const_iterator it = m_sessionKeys.find(uid);
     if (it != std::end(m_sessionKeys))
     {
         sessionKey = it->second;
@@ -86,7 +86,7 @@ int IPSessionDB::DelSessionID(int uid)
     int sessionKey = 0;
     m_sessionsLock.Enter();
 
-    auto it = m_sessionKeys.find(uid);
+    Sessions::const_iterator it = m_sessionKeys.find(uid);
     if (it != std::end(m_sessionKeys))
     {
         sessionKey = it->second;
@@ -102,7 +102,7 @@ void IPSessionDB::DellAllWaitingSessionID()
 {
     m_usersLock.Enter();
 
-    for (auto it = std::begin(m_users); it != std::end(m_users); it = m_users.erase(it))
+    for (LoginUsers::const_iterator it = m_users.begin(); it != m_users.end(); it = m_users.erase(it))
     {
         const LoginUser* userInfo = it->second;
         delete userInfo;

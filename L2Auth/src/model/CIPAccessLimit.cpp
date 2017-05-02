@@ -35,8 +35,8 @@ bool CIPAccessLimit::SetAccessIP(in_addr ipAddress)
 
     ::EnterCriticalSection(&m_locks[index]);
 
-    auto it = m_ipLimits[index].find(ipAddress.s_addr);
-    auto end = std::end(m_ipLimits[index]);
+    IpLimits::iterator it = m_ipLimits[index].find(ipAddress.s_addr);
+    IpLimits::iterator end = m_ipLimits[index].end();
     if (it != end)
     {
         if (it->second < g_Config.IPAccessLimit)
@@ -69,8 +69,8 @@ bool CIPAccessLimit::DelAccessIP(in_addr ipAddress)
 
     ::EnterCriticalSection(&m_locks[index]);
 
-    auto it = m_ipLimits[index].find(ipAddress.s_addr);
-    auto end = std::end(m_ipLimits[index]);
+    IpLimits::iterator it = m_ipLimits[index].find(ipAddress.s_addr);
+    IpLimits::iterator end = m_ipLimits[index].end();
     if (it != end)
     {
         if (it->second <= 1)

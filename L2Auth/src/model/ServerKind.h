@@ -32,7 +32,8 @@ private:
 
 private:
     int m_serverKindsCount;
-    std::vector<WorldServer> m_servers;
+    typedef std::vector<WorldServer> WorldServers;
+    WorldServers m_servers;
     ServerPacketList** m_serverFrames[4];
     int m_serverCount;
     mutable CRWLock m_rwLock;

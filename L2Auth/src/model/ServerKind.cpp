@@ -346,7 +346,7 @@ int ServerKind::SetServerSocket(int IPaddress, SOCKET socket)
 {
     int serverId = -1;
     m_rwLock.WriteLock();
-    for (auto it = std::begin(m_servers); it != std::end(m_servers); ++it)
+    for (WorldServers::iterator it = m_servers.begin(); it != m_servers.end(); ++it)
     {
         if (it->ipAddress == IPaddress)
         {
@@ -460,9 +460,9 @@ void ServerKind::MakeServerListFrame()
     for (int frameType = FrameType_DefaultOrCompressed; frameType < FrameType_Compressed; ++frameType)
     {
         tempFrameList.Init((FrameType)frameType, serverKind);
-        for (auto it = std::begin(m_servers);; ++it)
+        for (WorldServers::const_iterator it = m_servers.begin();; ++it)
         {
-            auto end = std::end(m_servers);
+            WorldServers::const_iterator end = m_servers.end();
             if (it == end)
             {
                 break;
@@ -493,9 +493,9 @@ void ServerKind::MakeServerListFrame()
         for (int serverKindIndex = 1; serverKindIndex < m_serverKindsCount; ++serverKindIndex)
         {
             tempFrameList.Init((FrameType)frameType, serverKindIndex);
-            for (auto it = std::begin(m_servers);; ++it)
+            for (WorldServers::const_iterator it = m_servers.begin();; ++it)
             {
-                auto end = std::end(m_servers);
+                WorldServers::const_iterator end = m_servers.end();
                 if (it == end)
                 {
                     break;

@@ -392,7 +392,7 @@ int CServerList::SetServerSocket(int ipAddress, SOCKET socket)
     int serverId = 0;
     m_rwLock.WriteLock();
 
-    for (auto it = std::begin(m_servers); it != std::end(m_servers); ++it)
+    for (std::vector<WorldServer>::iterator it = m_servers.begin(); it != m_servers.end(); ++it)
     {
         if (it->ipAddress == ipAddress)
         {
