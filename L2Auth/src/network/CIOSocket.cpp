@@ -49,7 +49,7 @@ void CIOSocket::OnClose()
 // 0x0041D61F
 void CIOSocket::CloseSocket()
 {
-    SOCKET oldSocket = ::InterlockedExchange(&m_hSocket, INVALID_SOCKET);
+    SOCKET oldSocket = ::InterlockedExchange((long*)&m_hSocket, INVALID_SOCKET);
     if (oldSocket != INVALID_SOCKET)
     {
         OnClose();

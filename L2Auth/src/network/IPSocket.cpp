@@ -325,7 +325,9 @@ bool IPSocket::packet03_handler(IPSocket* /*ipSocket*/, uint8_t* buffer)
             if (result != PLAY_FAIL_NO_ERROR)
             {
                 time_t loginTime = std::time(0);
-                g_IPSessionDB.StopIPCharge(uid, in_addr{connectedIp}, payStat, 0, loginTime, serverId, accountName);
+                in_addr addr;
+                addr.s_addr = connectedIp;
+                g_IPSessionDB.StopIPCharge(uid, addr, payStat, 0, loginTime, serverId, accountName);
             }
         }
         return false;
@@ -430,7 +432,9 @@ bool IPSocket::packet11_handler(IPSocket* /*ipSocket*/, uint8_t* buffer)
             if (result != PLAY_FAIL_NO_ERROR)
             {
                 time_t loginTime = std::time(0);
-                g_IPSessionDB.StopIPCharge(uid, in_addr{connectedIp}, payStatus, 0, loginTime, serverId, accName);
+				in_addr addr;
+                addr.s_addr = connectedIp;
+                g_IPSessionDB.StopIPCharge(uid, addr, payStatus, 0, loginTime, serverId, accName);
             }
         }
         return false;
@@ -471,7 +475,9 @@ bool IPSocket::packet15_handler(IPSocket* /*ipSocket*/, uint8_t* buffer)
     char accName[16];
     if (g_accountDb.FindAccount(uid, accName) <= 0)
     {
-        g_IPSessionDB.ReleaseSessionRequest(sessionKey, in_addr{clientIP}, payStat);
+		in_addr addr;
+        addr.s_addr = clientIP;
+        g_IPSessionDB.ReleaseSessionRequest(sessionKey, addr, payStat);
     }
     else
     {

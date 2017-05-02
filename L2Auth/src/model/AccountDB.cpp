@@ -224,7 +224,7 @@ bool AccountDB::KickAccount(int uid, char kickReason, bool sendToClient)
     int warnFlag = 0;
     char age = 0;
     int clientCookie = 0;
-    in_addr clientIP{};
+    in_addr clientIP;
     time_t loginTime = 0;
 
     m_spinLock.Enter();

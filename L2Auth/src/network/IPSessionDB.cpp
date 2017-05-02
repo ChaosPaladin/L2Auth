@@ -183,7 +183,9 @@ char IPSessionDB::AcquireSessionSuccess(int uid, int sessionKey, bool defaultRes
 
     if (userInfo == NULL)
     {
-        ReleaseSessionRequest(sessionKey, {0}, payStat);
+		in_addr addr;
+        addr.s_addr = 0;
+        ReleaseSessionRequest(sessionKey, addr, payStat);
         return true;
     }
 

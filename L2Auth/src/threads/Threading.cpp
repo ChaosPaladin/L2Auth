@@ -113,9 +113,8 @@ unsigned int __stdcall Threading::ListenThread(void*)
 
     Threading::g_teminateEvent = true;
 
+    auth_vunguard;
     return 0;
-
-    auth_unguard;
 }
 
 // 0x0043A0C0
@@ -126,9 +125,9 @@ unsigned int __stdcall Threading::TimerThread(void*)
     g_job.RunTimer();
 
     g_winlog.AddLog(LOG_WRN, "Timer thread terminated");
-    return 0;
 
-    auth_unguard;
+    auth_vunguard;
+    return 0;
 }
 
 // 0x0043A0E7
@@ -156,9 +155,8 @@ unsigned int __stdcall Threading::IOThreadServer(void*)
     g_winlog.AddLog(LOG_WRN, "terminate IOThreadServer");
     g_winlog.AddLog(LOG_WRN, "IOThreadServer Server Exit");
 
+    auth_vunguard;
     return 0;
-
-    auth_unguard;
 }
 
 // 0x0043A201
@@ -182,7 +180,6 @@ unsigned int __stdcall Threading::IOThreadInt(void*)
 
     g_winlog.AddLog(LOG_WRN, "terminate IOThreadInt");
 
+    auth_vunguard;
     return 0;
-
-    auth_unguard;
 }

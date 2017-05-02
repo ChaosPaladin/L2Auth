@@ -64,7 +64,7 @@ WorldSrvSocket::WorldSrvSocket(SOCKET socket)
     , m_packetSize(0)
     , m_socketStatus(SocketStatus_Init)
     , m_packetHandlers(WorldSrvSocket::handlers)
-    , m_worldSrvIP{}
+    , m_worldSrvIP()
 {
 }
 

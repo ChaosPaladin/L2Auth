@@ -11,7 +11,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-Config g_Config = Config{};
+Config g_Config = Config();
 
 // 0x0040A309
 Config::Config()
@@ -398,7 +398,10 @@ in_addr Config::GetInetAddr(const char* paramName) const
         addr.s_addr = inet_addr(value);
         return addr;
     }
-    return in_addr{0};
+
+	in_addr addr;
+    addr.s_addr = 0;
+    return addr;
 }
 
 // 0x0040ADA9

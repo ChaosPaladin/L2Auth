@@ -166,9 +166,12 @@ bool SendMail::SendMessageA(const char* mailTo, const char* subj, const char* bo
             }
         }
     }
+
     return result;
 
-    auth_unguard;
+    auth_vunguard;
+
+    return false;
 }
 
 // 0x00432FC9

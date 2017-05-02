@@ -42,7 +42,8 @@ int Utils::StdAccount(char* accName)
     }
     return tmp;
 
-    auth_unguard;
+    auth_vunguard;
+    return -1;
 }
 
 // 0x0043B7FE
@@ -342,7 +343,8 @@ bool Utils::CheckAccount(char* accName)
     }
     return result;
 
-    auth_unguard;
+    auth_vunguard;
+    return false;
 }
 
 // 0x0043B9BA
