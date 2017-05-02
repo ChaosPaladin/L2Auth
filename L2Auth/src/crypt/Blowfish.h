@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstdint>
+#include "utils/cstdint_support.h"
 
 class Blowfish
 {

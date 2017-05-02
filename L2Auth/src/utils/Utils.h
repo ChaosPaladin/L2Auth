@@ -3,7 +3,7 @@
 #include <Sqltypes.h>
 #include <windows.h>
 
-#include <cstdint>
+#include "utils/cstdint_support.h"
 #include <ctime>
 
 namespace Utils

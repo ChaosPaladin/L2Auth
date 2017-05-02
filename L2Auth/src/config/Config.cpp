@@ -2,7 +2,7 @@
 #include "ui/CLog.h"
 #include "utils/Unused.h"
 
-#include <cstdint>
+#include "utils/cstdint_support.h"
 #include <iostream>
 #include <strstream>
 #include <stdio.h>

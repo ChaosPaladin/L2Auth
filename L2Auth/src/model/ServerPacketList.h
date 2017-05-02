@@ -3,7 +3,7 @@
 #include "model/FrameType.h"
 #include "threads/CRWLock.h"
 
-#include <cstdint>
+#include "utils/cstdint_support.h"
 
 struct WorldServer;
 

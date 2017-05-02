@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstdint>
+#include "utils/cstdint_support.h"
 
 #define BUFFER_SIZE 8192  // 0x2000
 

@@ -5,7 +5,7 @@
 #include "network/CIOSocket.h"
 #include "network/SocketStatus.h"
 
-#include <cstdint>
+#include "utils/cstdint_support.h"
 
 class CAuthPacket;
 class LoginUser;

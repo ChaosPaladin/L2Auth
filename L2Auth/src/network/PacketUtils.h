@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdarg>
-#include <cstdint>
+#include "utils/cstdint_support.h"
 
 namespace PacketUtils
 {
