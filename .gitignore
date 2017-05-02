@@ -2,5 +2,5 @@ sources/
 release/
 debug/
 build/
-build-debug/
-build-release/
+build-*/
+*.user
