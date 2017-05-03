@@ -59,10 +59,10 @@ void CLog::Redraw()
         }
         else
         {
-            m_font = (int)::GetStockObject(16);
+            m_font = (int)::GetStockObject(SYSTEM_FIXED_FONT);
             ::SelectObject(hdc, (HGDIOBJ)m_font);
             ::GetClientRect(m_window, &m_loginWndRect);
-            m_brush = (int)::GetStockObject(0);
+            m_brush = (int)::GetStockObject(WHITE_BRUSH);
             ::GetTextExtentPoint32A(hdc, "H", 1, (LPSIZE)&m_textSize);
         }
         int y = m_loginWndRect.bottom;
