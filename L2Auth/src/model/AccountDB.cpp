@@ -620,7 +620,7 @@ bool AccountDB::removeAccountPreLogIn(int uid, SOCKET socket)
     SexAndCentury sexAndCentury = FemaleBorn_1800_to_1899;
     int serverId = 0;
     int warnFlag = 0;
-    int payStat;
+    int payStat = 0; // FIXED, wasn't initialized
     in_addr clientIP;
     char accName[15];
 
