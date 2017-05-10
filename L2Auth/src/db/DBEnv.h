@@ -33,6 +33,7 @@ public:
     SQLHENV sqlEnvHandle;
     SqlConnection* sqlConnections;
     SqlConnection* connectionsHead;
+
     char connectionStr[256];
     int connectionNumber;
     int recoveryTriggered;

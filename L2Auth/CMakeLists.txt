@@ -19,7 +19,7 @@ set(HEADER_FILES
     ./src/db/SqlConnection.h
     ./src/logger/CFileLog.h
     ./src/logger/CLogdFilelog.h
-    ./src/logger/LogSeverity.h
+    ./src/logger/LogType.h
     ./src/model/AccountDB.h
     ./src/model/CIPAccessLimit.h
     ./src/model/CServerKickList.h
@@ -105,7 +105,7 @@ set(SOURCE_FILES
     ./src/db/DBEnv.cpp
     ./src/logger/CFileLog.cpp
     ./src/logger/CLogdFilelog.cpp
-    ./src/logger/LogSeverity.cpp
+    ./src/logger/LogType.cpp
     ./src/model/AccountDB.cpp
     ./src/model/CIPAccessLimit.cpp
     ./src/model/CServerKickList.cpp

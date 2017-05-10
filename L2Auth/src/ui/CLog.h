@@ -1,6 +1,6 @@
 #pragma once
 
-#include "logger/LogSeverity.h"
+#include "logger/LogType.h"
 
 #include <stdio.h>
 #include <windows.h>
@@ -14,7 +14,7 @@ public:
     void Redraw();                                                // 0x0042D9D3
     void Resize(int right, int botton);                           // 0x0042DB8D
     void Enable(bool enabled);                                    // 0x0042DBC9
-    void AddLog(LOG_SEVERITY severity, const char* format, ...);  // 0x0042DBFC
+    void AddLog(LogType severity, const char* format, ...);  // 0x0042DBFC
     void SetDirectory(const char* fileName);                      // 0x0042DE5D
 
     void SetWnd(HWND wnd);  // 0x0042D9BD

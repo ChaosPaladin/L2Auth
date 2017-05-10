@@ -6,7 +6,7 @@ CLog g_winlog(128, "winlog");
 
 struct CLog::LogEntry
 {
-    LOG_SEVERITY logType;
+    LogType logType;
     char log[512];
     int logSize;
 };
@@ -109,7 +109,7 @@ void CLog::Enable(bool enabled)
 }
 
 // 0x0042DBFC
-void CLog::AddLog(LOG_SEVERITY log_type, const char* format, ...)
+void CLog::AddLog(LogType log_type, const char* format, ...)
 {
     char buffer[256];
     char logString[1020];

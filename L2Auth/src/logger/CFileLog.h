@@ -1,6 +1,6 @@
 #pragma once
 
-#include "logger/LogSeverity.h"
+#include "logger/LogType.h"
 
 #include <windows.h>
 
@@ -9,7 +9,7 @@ class CFileLog
 public:
     CFileLog(const char* fileExtension);                          // 0x0042DF47
     virtual ~CFileLog();                                          // 0x0042DF8F
-    void AddLog(LOG_SEVERITY severity, const char* format, ...);  // 0x0042E0DD
+    void AddLog(LogType severity, const char* format, ...);  // 0x0042E0DD
 
     void SetDirectory(const char* aDirName);  // 0x0042DFC6
 

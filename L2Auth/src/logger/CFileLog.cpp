@@ -27,7 +27,7 @@ CFileLog::~CFileLog()
 }
 
 // 0x0042E0DD
-void CFileLog::AddLog(LOG_SEVERITY severity, const char* format, ...)
+void CFileLog::AddLog(LogType severity, const char* format, ...)
 {
     UNUSED(severity);
 
