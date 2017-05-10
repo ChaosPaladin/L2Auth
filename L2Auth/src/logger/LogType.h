@@ -1,6 +1,6 @@
 #pragma once
 
-enum LOG_SEVERITY
+enum LogType
 {
     LOG_INF = 0,
     LOG_WRN = 1,
