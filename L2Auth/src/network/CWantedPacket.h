@@ -2,7 +2,7 @@
 
 #include "CIOObject.h"
 
-#include <cstdint>
+#include "utils/cstdint_support.h"
 
 class CWantedSocket;
 class CIOBuffer;

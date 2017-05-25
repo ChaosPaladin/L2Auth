@@ -9,7 +9,7 @@ CRWLock::CRWLock()
 {
     const int INITIAL_COUNT = 1;
     const int MAX_COUNT = 1;
-    m_semaphore = ::CreateSemaphoreA(nullptr, INITIAL_COUNT, MAX_COUNT, nullptr);
+    m_semaphore = ::CreateSemaphoreA(NULL, INITIAL_COUNT, MAX_COUNT, NULL);
     ::InitializeCriticalSection(&m_critSection);
 }
 

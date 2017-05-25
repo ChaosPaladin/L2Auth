@@ -17,7 +17,8 @@ private:
 
 private:
     CRITICAL_SECTION m_locks[16];
-    std::map<unsigned long, int> m_ipLimits[16];
+    typedef std::map<unsigned long, int> IpLimits;
+    IpLimits m_ipLimits[16];
 };
 
 extern CIPAccessLimit g_ipAccessLimit;

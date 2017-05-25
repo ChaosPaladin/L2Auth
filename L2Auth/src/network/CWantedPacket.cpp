@@ -12,9 +12,9 @@ long CWantedPacket::g_nPendingPacket;
 // 0x0043C5F0
 CWantedPacket::CWantedPacket()
     : CIOObject()
-    , m_pSocket(nullptr)
-    , m_pBuf(nullptr)
-    , m_pFunc(nullptr)
+    , m_pSocket(NULL)
+    , m_pBuf(NULL)
+    , m_pFunc(NULL)
 {
 }
 
@@ -30,7 +30,7 @@ CWantedPacket* CWantedPacket::Alloc()
     slot->m_lock.Enter();
 
     CWantedPacket* packet = slot->m_data.packet;
-    if (packet != nullptr)
+    if (packet != NULL)
     {
         slot->m_data.socket = packet->m_pSocket;
         slot->m_lock.Leave();
@@ -53,13 +53,13 @@ void CWantedPacket::FreeAll()
         while (true)
         {
             CWantedPacket* packet = slot->m_data.packet;
-            if (packet == nullptr)
+            if (packet == NULL)
             {
                 break;
             }
 
             slot->m_data.socket = packet->m_pSocket;
-            if (packet != nullptr)
+            if (packet != NULL)
             {
                 delete packet;
             }

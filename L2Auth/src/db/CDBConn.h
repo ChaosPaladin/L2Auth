@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <Sqltypes.h>
 
-#include <cstdint>
+#include "utils/cstdint_support.h"
 
 class DBEnv;
 struct SqlConnection;

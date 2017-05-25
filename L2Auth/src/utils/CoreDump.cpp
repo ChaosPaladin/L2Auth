@@ -317,7 +317,7 @@ void CoreDump::writeModules(HANDLE hFile)  // 0x0041703B
     int pagesPerGb = 1024u * 1024u * 1024u / systemInfo.dwPageSize;
     int pageCount = 4u * pagesPerGb;  // 4 GB / pageSize => TODO: x64
     int pageIndex = 0;
-    void* baseAddress = nullptr;
+    void* baseAddress = NULL;
     while (true)
     {
         if (pageIndex >= pageCount)
@@ -502,7 +502,7 @@ const char* CoreDump::exceptionToString(int exceptionCode)  // 0x004174C8
     exceptions[20].name = "a Privileged Instruction";
     exceptions[21].code = EXCEPTION_STACK_OVERFLOW;
     exceptions[21].name = "a Stack Overflow";
-    exceptions[22].code = STATUS_DLL_INIT_FAILED;
+    exceptions[22].code = 0xC0000142; //STATUS_DLL_INIT_FAILED;
     exceptions[22].name = "a DLL Initialization Failed";
     exceptions[23].code = 0xE06D7363;
     exceptions[23].name = "a Microsoft C++ Exception";

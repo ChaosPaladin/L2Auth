@@ -12,9 +12,9 @@ CIOSocket::CIOSocket(SOCKET socket)
     , m_lock()
     , m_overlappedRead()
     , m_overlappedWrite()
-    , m_pReadBuf(nullptr)
-    , m_pFirstBuf(nullptr)
-    , m_pLastBuf(nullptr)
+    , m_pReadBuf(NULL)
+    , m_pFirstBuf(NULL)
+    , m_pLastBuf(NULL)
     , m_nPendingWrite(0)
     , m_hSocket(socket)
 {
@@ -49,7 +49,7 @@ void CIOSocket::OnClose()
 // 0x0041D61F
 void CIOSocket::CloseSocket()
 {
-    SOCKET oldSocket = ::InterlockedExchange(&m_hSocket, INVALID_SOCKET);
+    SOCKET oldSocket = ::InterlockedExchange((long*)&m_hSocket, INVALID_SOCKET);
     if (oldSocket != INVALID_SOCKET)
     {
         OnClose();

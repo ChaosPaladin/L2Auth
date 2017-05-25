@@ -40,7 +40,7 @@ void CLogdFilelog::AddLog(int logType, const char* format, ...)
     {
         sprintf(newFileName, "%s\\%04d-%02d-%02d-100%02d-201-authd-in%d.%s", m_dirName, now->tm_year + 1900, now->tm_mon + 1, now->tm_mday, now->tm_hour, isSecondHalfOfHour, m_extension);
 
-        HANDLE newFileHandler = ::CreateFileA(newFileName, GENERIC_WRITE, FILE_SHARE_READ, nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+        HANDLE newFileHandler = ::CreateFileA(newFileName, GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
         HANDLE oldFileHandler = (HANDLE)::InterlockedExchange((volatile LONG*)&m_fileHandler, (LONG)newFileHandler);  // TODO: x64 problem
         if (oldFileHandler && oldFileHandler != INVALID_HANDLE_VALUE)
         {
@@ -82,7 +82,7 @@ void CLogdFilelog::SetDirectory(const char* aDirName)
         sprintf(newFileName, "%s\\%04d-%02d-%02d-100%02d-201-authd-in0.%s", m_dirName, now->tm_year + 1900, now->tm_mon + 1, now->tm_mday, now->tm_hour, m_extension);
         m_halfAnHour = false;
     }
-    m_fileHandler = ::CreateFileA(newFileName, GENERIC_WRITE, FILE_SHARE_READ, nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    m_fileHandler = ::CreateFileA(newFileName, GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     if (m_fileHandler != (HANDLE)-1)
     {
         ::SetFilePointer(m_fileHandler, 0, 0, FILE_END);

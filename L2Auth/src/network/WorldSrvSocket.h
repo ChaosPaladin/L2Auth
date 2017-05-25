@@ -5,7 +5,7 @@
 #include "network/SocketStatus.h"
 #include "threads/CRWLock.h"
 
-#include <cstdint>
+#include "utils/cstdint_support.h"
 
 class WorldSrvPacket;
 

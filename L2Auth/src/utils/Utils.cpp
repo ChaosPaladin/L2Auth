@@ -42,7 +42,8 @@ int Utils::StdAccount(char* accName)
     }
     return tmp;
 
-    auth_unguard;
+    auth_vunguard;
+    return -1;
 }
 
 // 0x0043B7FE
@@ -314,7 +315,7 @@ bool Utils::CheckAccount(char* accName)
     auth_guard;
 
     bool result;
-    if (accName != nullptr)
+    if (accName != NULL)
     {
         if (std::isalpha(*accName))
         {
@@ -342,7 +343,8 @@ bool Utils::CheckAccount(char* accName)
     }
     return result;
 
-    auth_unguard;
+    auth_vunguard;
+    return false;
 }
 
 // 0x0043B9BA
@@ -394,7 +396,7 @@ bool Utils::CheckDiskSpace(LPCSTR lpDirectoryName, uint64_t limit)
 const char* getFileName(const char* str)
 {
     const char* backSlash = ::strrchr(str, '\\');
-    if (backSlash != nullptr)
+    if (backSlash != NULL)
     {
         return backSlash + 1;
     }

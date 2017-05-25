@@ -29,8 +29,9 @@ bool CIPList::IpExists(in_addr ipAddress) const
     range.startAddress = _byteswap_ulong(ipAddress.s_addr);
 
     // lower_bounds looking for endAddress, so it checks is ipAddress in one of the range
-    auto found = std::lower_bound(std::begin(m_addresses), std::end(m_addresses), range);  // TODO: upper_bound in origin code + change operator<
-    bool result = (found != std::end(m_addresses)) && (found->startAddress <= range.startAddress);
+    // TODO: upper_bound in origin code + change operator<
+    std::vector<IPRecord>::const_iterator found = std::lower_bound(m_addresses.begin(), m_addresses.end(), range);
+    bool result = (found != m_addresses.end()) && (found->startAddress <= range.startAddress);
 
     m_lock.ReadUnlock();
 
@@ -123,7 +124,7 @@ bool CIPList::Load(const char* fileName)
                                     IPRecord range;
                                     range.startAddress = ipRange.startAddress - 1;
 
-                                    auto first = std::lower_bound(m_addresses.begin(), m_addresses.end(), range);
+                                    std::vector<IPRecord>::iterator first = std::lower_bound(m_addresses.begin(), m_addresses.end(), range);
                                     if ((first == m_addresses.end()) || (first->startAddress > ipRange.startAddress - 1))
                                     {
                                     LABEL_28:

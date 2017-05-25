@@ -9,7 +9,7 @@ class WorldSrvSocket;
 class WorldSrvServer : public CIOServer
 {
 public:
-    using WorldSrvSocketFactory = WorldSrvSocket*(SOCKET socket);
+    typedef WorldSrvSocket*(*WorldSrvSocketFactory)(SOCKET socket);
 
 public:
     WorldSrvServer();   // 0x0041865F
@@ -17,7 +17,7 @@ public:
 
     static bool SendSocket(int ipAddress, const char* format, ...);  // 0x00439142
 
-    bool Run(int port, WorldSrvSocketFactory* factoryMethod);  // 0x004188A6
+    bool Run(int port, WorldSrvSocketFactory factoryMethod);  // 0x004188A6
 
     bool GetServerStatus(int ipAddress) const;  // 0x00418976
     void RemoveSocket(int ipAddress);           // 0x004189DE
@@ -29,9 +29,10 @@ private:
     WorldSrvSocket* FindSocket(int ipAddress) const;  // 0x004188F9
 
 private:
-    std::map<int, WorldSrvSocket*> m_sockets;
+    typedef std::map<int, WorldSrvSocket*> Sockets;
+    Sockets m_sockets;
     mutable CRITICAL_SECTION m_lock;
-    WorldSrvSocketFactory* m_factoryMethod;
+    WorldSrvSocketFactory m_factoryMethod;
 };
 
 extern WorldSrvServer g_worldServServer;

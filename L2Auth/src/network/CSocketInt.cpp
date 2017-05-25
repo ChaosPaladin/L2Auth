@@ -188,7 +188,7 @@ void CSocketInt::packet00_kickByUid(CSocketInt* socketInt, const char* command)
 {
     char uidStr[256];
     const char* token = subcommand(uidStr, command);
-    if (token != nullptr)
+    if (token != NULL)
     {
         subcommand(uidStr, token);
         int uidLen = ::strlen(uidStr);
@@ -217,7 +217,7 @@ void CSocketInt::packet01_changeSocketLimit(CSocketInt* socketInt, const char* c
     char buffer[268];
 
     const char* token = subcommand(buffer, command);
-    if (token != nullptr)
+    if (token != NULL)
     {
         subcommand(buffer, token);
         int socketLimit = ::atoi(buffer);
@@ -244,7 +244,7 @@ void CSocketInt::packet03_kickByAccNameFromAuthServer(CSocketInt* socketInt, con
     memset(accountName, 0, 32u);
 
     const char* token = subcommand(accountName, command);
-    if (token != nullptr)
+    if (token != NULL)
     {
         subcommand(accountName, token);
         accountName[14] = 0;
@@ -283,7 +283,7 @@ void CSocketInt::packet04_changeGmMode(CSocketInt* socketInt, const char* comman
 {
     char buffer[256];
     const char* token = subcommand(buffer, command);
-    if (token != nullptr)
+    if (token != NULL)
     {
         memset(buffer, 0, 32u);
         subcommand(buffer, token);
@@ -317,7 +317,7 @@ void CSocketInt::packet06_changeGmIp(CSocketInt* socketInt, const char* command)
     char buffer[256];
 
     const char* token = subcommand(buffer, command);
-    if (token != nullptr)
+    if (token != NULL)
     {
         subcommand(buffer, token);
         buffer[16] = 0;
@@ -355,7 +355,7 @@ void CSocketInt::packet08_changeServerMode(CSocketInt* socketInt, const char* co
     char buffer[256];
 
     const char* token = subcommand(buffer, command);
-    if (token == nullptr)
+    if (token == NULL)
     {
         socketInt->Send("0");
         return;
@@ -385,14 +385,14 @@ void CSocketInt::packet09_getLoginFlag(CSocketInt* socketInt, const char* comman
 {
     char buffer[256];
     const char* token = subcommand(buffer, command);
-    if (token == nullptr)
+    if (token == NULL)
     {
         socketInt->Send("-OCHK\t004\t\n");
         return;
     }
 
     token = subcommand(buffer, token);
-    if (token == nullptr)
+    if (token == NULL)
     {
         socketInt->Send("-OCHK\t003\tError\r\n");
         return;
@@ -401,7 +401,7 @@ void CSocketInt::packet09_getLoginFlag(CSocketInt* socketInt, const char* comman
     char accName[16];
     ::strncpy(accName, buffer, sizeof(accName));
     token = subcommand(buffer, token);
-    if (token == nullptr)
+    if (token == NULL)
     {
         socketInt->Send("-OCHK\t003\tError\r\n");
         return;
@@ -448,7 +448,7 @@ void CSocketInt::packet10_checkUser(CSocketInt* socketInt, const char* command)
     char buffer[256];
 
     const char* token = subcommand(buffer, command);
-    if (token == nullptr)
+    if (token == NULL)
     {
         socketInt->Send("%d", 1);
         return;
@@ -456,7 +456,7 @@ void CSocketInt::packet10_checkUser(CSocketInt* socketInt, const char* command)
 
     buffer[0] = 0;
     token = subcommand(buffer, token);
-    if (token == nullptr)
+    if (token == NULL)
     {
         socketInt->Send("%d", 1);
         return;
@@ -475,7 +475,7 @@ void CSocketInt::packet10_checkUser(CSocketInt* socketInt, const char* command)
 
     buffer[0] = 0;
     token = subcommand(buffer, token);
-    if (token == nullptr)
+    if (token == NULL)
     {
         socketInt->Send("%d", 1);
         return;
@@ -507,7 +507,7 @@ void CSocketInt::packet11_kickUserFromWorldServer(CSocketInt* socketInt, const c
 
     char buffer[256];
     const char* token = subcommand(buffer, command);
-    if (token == nullptr)
+    if (token == NULL)
     {
         socketInt->Send("%d", 1);
         return;

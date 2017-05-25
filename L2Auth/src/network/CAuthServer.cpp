@@ -24,7 +24,7 @@ CAuthServer::CAuthServer()
     , m_socket(INVALID_SOCKET)
     , m_acceptSocket(INVALID_SOCKET)
     , m_acceptEvent(NULL)
-    , m_authSocketFactory(nullptr)
+    , m_authSocketFactory(NULL)
     , m_field_60()
 {
     CAuthServer::s_timerQueue = ::CreateTimerQueue();
@@ -68,7 +68,7 @@ void CAuthServer::OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED 
         ::GetAcceptExSockaddrs(overlapped->outputBuffer, dwTransferred, sizeof(sockaddr_in) + 16, sizeof(sockaddr_in) + 16, (LPSOCKADDR*)&localSockaddr, &localSockaddrLength, (LPSOCKADDR*)&remoteAddr, &remoteAddrLength);
 
         CAuthSocket* userSocket = CreateSocket(overlapped->acceptSocket, *remoteAddr);
-        if (userSocket != nullptr)
+        if (userSocket != NULL)
         {
             userSocket->Initialize(Threading::g_hCompletionPort);
         }
@@ -80,7 +80,7 @@ void CAuthServer::OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED 
         return;
     }
 
-    if (lpOverlapped != nullptr)
+    if (lpOverlapped != NULL)
     {
         CAuthOverlapped* overlapped = static_cast<CAuthOverlapped*>(lpOverlapped);
         ::closesocket(overlapped->acceptSocket);
@@ -105,7 +105,7 @@ void CAuthServer::OnEventCallback()
 }
 
 // 0x004192BD
-void CAuthServer::Run(int port, AuthSocketFactory* authSocketFactory)
+void CAuthServer::Run(int port, AuthSocketFactory authSocketFactory)
 {
     m_authSocketFactory = authSocketFactory;
     m_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
@@ -216,7 +216,7 @@ void CAuthServer::Close()
 // 0x00419454
 CAuthSocket* CAuthServer::CreateSocket(SOCKET socket, const sockaddr_in& addr)
 {
-    CAuthSocket* client = nullptr;
+    CAuthSocket* client = NULL;
     if (g_reporter.sockets < g_Config.socketLimit)
     {
         if (g_ipAccessLimit.SetAccessIP(addr.sin_addr))
@@ -240,11 +240,11 @@ CAuthSocket* CAuthServer::CreateSocket(SOCKET socket, const sockaddr_in& addr)
 // 0x00419532
 CAuthSocket* CAuthServer::FindSocket(SOCKET socket) const
 {
-    CAuthSocket* authSocket = nullptr;
+    CAuthSocket* authSocket = NULL;
     ::EnterCriticalSection(&m_lock);
 
-    auto it = m_sockets.find(socket);
-    if (it != std::end(m_sockets))
+    std::map<SOCKET, CAuthSocket*>::const_iterator it = m_sockets.find(socket);
+    if (it != m_sockets.end())
     {
         authSocket = it->second;
         authSocket->AddRef();

@@ -13,7 +13,7 @@ struct CLog::LogEntry
 
 // 0x0042D920
 CLog::CLog(int bufferLength, const char* ext)
-    : m_window(nullptr)
+    : m_window(NULL)
     , m_enabled(false)
     , m_bufferLength(bufferLength)
     , m_currentLine(0)

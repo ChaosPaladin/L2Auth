@@ -25,7 +25,7 @@ void CServerKickList::AddKickUser(int uid, char* accName)
 void CServerKickList::PopKickUser(WorldSrvSocket* socket)
 {
     m_lock.Enter();
-    for (auto it = std::begin(m_users); it != std::end(m_users); ++it)
+    for (std::map<int, std::string>::iterator it = m_users.begin(); it != m_users.end(); ++it)
     {
         int uid = it->first;
         char accName[15];

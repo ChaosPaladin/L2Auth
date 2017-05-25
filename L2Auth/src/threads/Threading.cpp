@@ -80,7 +80,7 @@ unsigned int __stdcall Threading::ListenThread(void*)
     g_authServer.Stop();
     g_CIOServerInt.Close();
 
-    if (g_IPSocket != nullptr)
+    if (g_IPSocket != NULL)
     {
         IPSocket::s_lock.WriteLock();
 
@@ -93,7 +93,7 @@ unsigned int __stdcall Threading::ListenThread(void*)
         IPSocket::s_lock.WriteUnlock();
     }
 
-    if (g_LogDSocket != nullptr)
+    if (g_LogDSocket != NULL)
     {
         CLogSocket::s_lock.WriteLock();
 
@@ -113,9 +113,8 @@ unsigned int __stdcall Threading::ListenThread(void*)
 
     Threading::g_teminateEvent = true;
 
+    auth_vunguard;
     return 0;
-
-    auth_unguard;
 }
 
 // 0x0043A0C0
@@ -126,9 +125,9 @@ unsigned int __stdcall Threading::TimerThread(void*)
     g_job.RunTimer();
 
     g_winlog.AddLog(LOG_WRN, "Timer thread terminated");
-    return 0;
 
-    auth_unguard;
+    auth_vunguard;
+    return 0;
 }
 
 // 0x0043A0E7
@@ -142,8 +141,8 @@ unsigned int __stdcall Threading::IOThreadServer(void*)
     while (!Threading::g_bTerminating)
     {
         DWORD dwTransferred = 0;
-        OVERLAPPED* overlapped = nullptr;
-        CIOObject* pObject = nullptr;
+        OVERLAPPED* overlapped = NULL;
+        CIOObject* pObject = NULL;
         BOOL success = ::GetQueuedCompletionStatus(Threading::g_hCompletionPort, &dwTransferred, (PULONG_PTR)&pObject, &overlapped, INFINITE);
 
         ::InterlockedIncrement(&CReporter::g_nRunningThread);
@@ -156,9 +155,8 @@ unsigned int __stdcall Threading::IOThreadServer(void*)
     g_winlog.AddLog(LOG_WRN, "terminate IOThreadServer");
     g_winlog.AddLog(LOG_WRN, "IOThreadServer Server Exit");
 
+    auth_vunguard;
     return 0;
-
-    auth_unguard;
 }
 
 // 0x0043A201
@@ -171,10 +169,10 @@ unsigned int __stdcall Threading::IOThreadInt(void*)
     while (!Threading::g_bTerminating)
     {
         DWORD dwTransferred = 0;
-        OVERLAPPED* overlapped = nullptr;
-        CIOObject* pObject = nullptr;
+        OVERLAPPED* overlapped = NULL;
+        CIOObject* pObject = NULL;
         BOOL success = ::GetQueuedCompletionStatus(Threading::g_hCompletionPortExtra, &dwTransferred, (PULONG_PTR)&pObject, &overlapped, INFINITE);
-        if (pObject != nullptr)  // FIXED: crash in debug, at exit
+        if (pObject != NULL)  // FIXED: crash in debug, at exit
         {
             pObject->OnIOCallback(success, dwTransferred, overlapped);
         }
@@ -182,7 +180,6 @@ unsigned int __stdcall Threading::IOThreadInt(void*)
 
     g_winlog.AddLog(LOG_WRN, "terminate IOThreadInt");
 
+    auth_vunguard;
     return 0;
-
-    auth_unguard;
 }

@@ -4,7 +4,7 @@
 WorldSrvPacketSlot::WorldSrvPacketSlot()
     : m_lock(LockType_WaitLock, 0)
 {
-    m_data.packet = nullptr;
+    m_data.packet = NULL;
 }
 
 // 0x0041E0D0

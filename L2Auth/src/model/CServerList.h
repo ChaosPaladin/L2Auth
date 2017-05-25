@@ -4,7 +4,7 @@
 #include "model/WorldServer.h"
 #include "threads/CRWLock.h"
 
-#include <cstdint>
+#include "utils/cstdint_support.h"
 #include <vector>
 
 class CServerList

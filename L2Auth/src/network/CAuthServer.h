@@ -9,7 +9,7 @@ class CAuthSocket;
 class CAuthServer : public CIOObject
 {
 public:
-    using AuthSocketFactory = CAuthSocket*(SOCKET socket);
+    typedef CAuthSocket*(*AuthSocketFactory)(SOCKET socket);
 
 public:
     CAuthServer();   // 0x00418E51
@@ -19,7 +19,7 @@ public:
     void OnEventCallback() override;                                                            // 0x004191F7
 
     void Stop();                                               // 0x00419258
-    void Run(int port, AuthSocketFactory* authSocketFactory);  // 0x004192BD
+    void Run(int port, AuthSocketFactory authSocketFactory);  // 0x004192BD
 
     void RemoveSocket(SOCKET socket);              // 0x004195AF
     CAuthSocket* FindSocket(SOCKET socket) const;  // 0x00419532
@@ -42,7 +42,7 @@ private:
     SOCKET m_socket;
     SOCKET m_acceptSocket;
     HANDLE m_acceptEvent;
-    AuthSocketFactory* m_authSocketFactory;
+    AuthSocketFactory m_authSocketFactory;
     int m_field_60;
 };
 

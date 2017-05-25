@@ -56,7 +56,8 @@ private:
     static const int updateKey;
     static const int updateKey2;
 
-    std::map<int, LoginUser> m_accounts;
+    typedef std::map<int, LoginUser> UserMap;
+    UserMap m_accounts;
     mutable CLock m_spinLock;
 };
 

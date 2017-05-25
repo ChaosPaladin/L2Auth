@@ -387,7 +387,7 @@ int ServerPacketList::GetServerPacketList(char** buffer)
 // 0x004369B6
 bool ServerPacketList::ExchangeServePacketList(FrameType frameType, int serverKind, int usedBuffSize, char* buffer)
 {
-    if ((frameType == m_frameType) && (serverKind == m_serverKindIndex) && (buffer != nullptr))
+    if ((frameType == m_frameType) && (serverKind == m_serverKindIndex) && (buffer != NULL))
     {
         m_rwLock.WriteLock();
 

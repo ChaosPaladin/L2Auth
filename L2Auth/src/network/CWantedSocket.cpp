@@ -16,7 +16,7 @@ bool CWantedSocket::isReconnecting = false;
 CRWLock CWantedSocket::s_lock;
 HANDLE CWantedSocket::s_timer;
 
-CWantedSocket* g_SocketWanted = nullptr;
+CWantedSocket* g_SocketWanted = NULL;
 
 const CWantedSocket::PacketHandler CWantedSocket::handlers[CWantedSocket::HANDLERS_NUMBER] = {&CWantedSocket::packet0_getVersion, &CWantedSocket::packet1, &CWantedSocket::packet2, &CWantedSocket::packet3_dummy_packet};
 

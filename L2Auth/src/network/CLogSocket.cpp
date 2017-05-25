@@ -19,7 +19,7 @@ HANDLE CLogSocket::s_timer;
 bool CLogSocket::created = false;
 bool CLogSocket::isReconnecting = false;
 
-CLogSocket* g_LogDSocket = nullptr;
+CLogSocket* g_LogDSocket = NULL;
 
 const CLogSocket::PacketHandler CLogSocket::handlers[1] = {&CLogSocket::packet0_dummy_handler};
 

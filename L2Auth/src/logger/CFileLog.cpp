@@ -41,7 +41,7 @@ void CFileLog::AddLog(LogType severity, const char* format, ...)
         char newFileName[256];
         sprintf(newFileName, "%s\\%04d-%02d-%02d.%02d.%s", m_dirName, now->tm_year + 1900, now->tm_mon + 1, now->tm_mday, now->tm_hour, m_extension);
 
-        HANDLE newFileHandler = ::CreateFileA(newFileName, GENERIC_WRITE, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+        HANDLE newFileHandler = ::CreateFileA(newFileName, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
         HANDLE oldFileHandler = (HANDLE)::InterlockedExchange((volatile LONG*)&m_fileHandler, (LONG)newFileHandler);  // TODO: x64 unsafe
         if (oldFileHandler)
         {
@@ -58,7 +58,7 @@ void CFileLog::AddLog(LogType severity, const char* format, ...)
     {
         size_t buffLen = strlen(buffer);
         DWORD bytesWritten;
-        ::WriteFile(m_fileHandler, buffer, buffLen, &bytesWritten, nullptr);
+        ::WriteFile(m_fileHandler, buffer, buffLen, &bytesWritten, NULL);
     }
 }
 
@@ -71,7 +71,7 @@ void CFileLog::SetDirectory(const char* aDirName)
 
     char newFileName[256];
     sprintf(newFileName, "%s\\%04d-%02d-%02d.%02d.%s", m_dirName, now->tm_year + 1900, now->tm_mon + 1, now->tm_mday, now->tm_hour, m_extension);
-    m_fileHandler = ::CreateFileA(newFileName, GENERIC_WRITE, FILE_SHARE_READ, nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    m_fileHandler = ::CreateFileA(newFileName, GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     if (m_fileHandler != INVALID_HANDLE_VALUE)
     {
         ::SetFilePointer(m_fileHandler, 0, 0, FILE_END);

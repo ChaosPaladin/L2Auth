@@ -4,7 +4,7 @@
 CAuthPacketSlot::CAuthPacketSlot()
     : m_lock(LockType_WaitLock, 0)
 {
-    m_data.packet = nullptr;
+    m_data.packet = NULL;
 }
 
 CAuthPacketSlot::~CAuthPacketSlot()

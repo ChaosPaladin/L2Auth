@@ -54,7 +54,7 @@ bool AccountDB::SendWantedServerLogout(const char* accName, int uid, int serverI
             packet[19] = serverId;
             time_t now = std::time(0);
             memcpy(&packet[20], &now, 4u);
-            if (g_SocketWanted != nullptr && g_Config.useWantedSystem && !CWantedSocket::isReconnecting)
+            if (g_SocketWanted != NULL && g_Config.useWantedSystem && !CWantedSocket::isReconnecting)
             {
                 g_winlog.AddLog(LOG_DBG, "Wanted User LogOut, %s", accName);
                 CWantedSocket::s_lock.ReadLock();
@@ -78,7 +78,7 @@ int AccountDB::FindAccount(int uid, char* accountName)
     int lastworld = -1;
     HANDLE timer = NULL;
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         LoginUser& user = it->second;
@@ -109,7 +109,7 @@ bool AccountDB::FindAccount(int uid, char* accName, int* loginFlag, int* warnFla
     HANDLE timer = NULL;
     m_spinLock.Enter();
 
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         LoginUser& user = it->second;
@@ -137,7 +137,7 @@ bool AccountDB::FindAccount(int uid, char* accName, int* loginFlag, int* warnFla
 PlayFail AccountDB::UpdateSocket(int uid, SOCKET socket, int sessionKey, int serverId)
 {
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it == m_accounts.end())
     {
         m_spinLock.Leave();
@@ -169,7 +169,7 @@ PlayFail AccountDB::UpdateSocket(int uid, SOCKET socket, int sessionKey, int ser
 bool AccountDB::RegAccount(const LoginUser& user, int uid, CAuthSocket* gameClient, int totalTime, int zero)
 {
     m_spinLock.Enter();
-    auto result = m_accounts.insert(std::make_pair(uid, user));
+    std::pair<UserMap::iterator, bool> result = m_accounts.insert(std::make_pair(uid, user));
     const bool isOffline = result.second;  // second == true, means was inserted, not changed
     m_spinLock.Leave();
 
@@ -183,7 +183,7 @@ bool AccountDB::RegAccount(const LoginUser& user, int uid, CAuthSocket* gameClie
             if (!success)
             {
                 m_spinLock.Enter();
-                auto it = m_accounts.find(uid);
+                UserMap::iterator it = m_accounts.find(uid);
                 if (it != m_accounts.end())
                 {
                     m_accounts.erase(uid);
@@ -224,11 +224,11 @@ bool AccountDB::KickAccount(int uid, char kickReason, bool sendToClient)
     int warnFlag = 0;
     char age = 0;
     int clientCookie = 0;
-    in_addr clientIP{};
+    in_addr clientIP;
     time_t loginTime = 0;
 
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         const LoginUser& user = it->second;
@@ -351,7 +351,7 @@ void AccountDB::TimerCallback(int uid)
     in_addr clientIP = {0};
 
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         LoginUser& user = it->second;
@@ -412,8 +412,8 @@ void AccountDB::TimerCallback(int uid)
 PlayFail AccountDB::checkInGame(int uid, int sessionKey) const
 {
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
-    if (it == std::end(m_accounts))
+    UserMap::const_iterator it = m_accounts.find(uid);
+    if (it == m_accounts.end())
     {
         m_spinLock.Leave();
         return PLAY_FAIL_WRONG_ACC_NAME;
@@ -440,7 +440,7 @@ PlayFail AccountDB::checkInGame(int uid, int sessionKey) const
 void AccountDB::RemoveAll(int serverId)
 {
     m_spinLock.Enter();
-    auto it = std::begin(m_accounts);
+    UserMap::iterator it = m_accounts.begin();
     while (it != m_accounts.end())
     {
         const LoginUser& user = it->second;
@@ -470,7 +470,7 @@ void AccountDB::RemoveAll(int serverId)
 void AccountDB::RemoveAll()
 {
     m_spinLock.Enter();
-    for (auto it = std::begin(m_accounts); it != m_accounts.end(); it = m_accounts.erase(it))
+    for (UserMap::iterator it = m_accounts.begin(); it != m_accounts.end(); it = m_accounts.erase(it))
     {
         const LoginUser& user = it->second;
 
@@ -506,7 +506,7 @@ SOCKET AccountDB::FindSocket(int uid, bool recreate)
     HANDLE timer = NULL;
 
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         LoginUser& user = it->second;
@@ -538,7 +538,7 @@ SOCKET AccountDB::FindSocket(int uid, int serverId, bool restartTimer, int* sele
     *selectedGServerId = 0;
 
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         LoginUser& user = it->second;
@@ -578,7 +578,7 @@ bool AccountDB::removeAccount(int uid, char* accName)
     in_addr clientIP;
 
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         const LoginUser& user = it->second;
@@ -626,7 +626,7 @@ bool AccountDB::removeAccountPreLogIn(int uid, SOCKET socket)
 
     m_spinLock.Enter();
 
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         const LoginUser& user = it->second;
@@ -692,7 +692,7 @@ bool AccountDB::logoutAccount(int uid, int sessionKey)
     char sexAndCentury;
 
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         const LoginUser& user = it->second;
@@ -762,7 +762,7 @@ bool AccountDB::logoutAccount(int uid)
     in_addr clientIP;
 
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         const LoginUser& user = it->second;
@@ -823,7 +823,7 @@ bool AccountDB::recordGamePlayTime(int uid, int serverId)
     in_addr connectedIP;
 
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         LoginUser& user = it->second;
@@ -859,7 +859,7 @@ bool AccountDB::recordGamePlayTime(int uid, int serverId)
         Utils::WriteLogD(802, accName, connectedIP, payStat, age, sexAndCentury, 0, g_reporter.loggedUsers, uid);
     }
 
-    if (g_SocketWanted != nullptr && g_Config.useWantedSystem && (warnFlag & 4) == 4 && success)
+    if (g_SocketWanted != NULL && g_Config.useWantedSystem && (warnFlag & 4) == 4 && success)
     {
         char buffer[28];
         memset(buffer, 0, sizeof(buffer));
@@ -898,7 +898,7 @@ bool AccountDB::quitGamePlay(int uid, int serverId)
     }
 
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     LoginUser quitUser;
     if (it != m_accounts.end())
     {
@@ -939,7 +939,7 @@ bool AccountDB::quitGamePlay(int uid, int serverId)
 // 0x00404A52
 PlayFail AccountDB::AboutToPlay(int uid, char* accName, int totalTime, int loginFlag, int warnFlag, int sessionKey, CAuthSocket* gameClient, signed int serverId, int payStat)
 {
-    if (!ServersProvider::GetServerStatus(serverId) && gameClient != nullptr)
+    if (!ServersProvider::GetServerStatus(serverId) && gameClient != NULL)
     {
         gameClient->Send("cc", LS_PlayFail, PLAY_FAIL_GS_ERROR);
         return PLAY_FAIL_GS_ERROR;
@@ -955,7 +955,7 @@ PlayFail AccountDB::AboutToPlay(int uid, char* accName, int totalTime, int login
         ::SQLBindCol(sql.getHandler(), 1u, SQL_C_BINARY, userData, sizeof(userData), &len);
 
         sql.Execute("SELECT user_data FROM user_data with (nolock) WHERE  uid = %d", uid);
-        sql.Fetch(nullptr);
+        sql.Fetch(NULL);
 
         if (serverId <= g_serverList.m_serverNumber && serverId >= 1)
         {
@@ -969,7 +969,7 @@ PlayFail AccountDB::AboutToPlay(int uid, char* accName, int totalTime, int login
         success = WorldSrvServer::SendSocket(worldServer.ipAddress, "cdsdddd", 0, uid, accName, totalTime, loginFlag, warnFlag, payStat);
     }
 
-    if (gameClient != nullptr)
+    if (gameClient != NULL)
     {
         if (success)
         {
@@ -997,7 +997,7 @@ bool AccountDB::GetAccountInfo(int uid, char* accountName, int* loginFlag, int* 
     HANDLE timer = 0;
 
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         LoginUser& user = it->second;
@@ -1025,7 +1025,7 @@ bool AccountDB::GetAccountInfoForIPStop(int uid, char* accName, int* payStat, in
 {
     bool success = false;
     m_spinLock.Enter();
-    auto it = m_accounts.find(uid);
+    UserMap::const_iterator it = m_accounts.find(uid);
     if (it != m_accounts.end())
     {
         const LoginUser& user = it->second;
@@ -1048,7 +1048,7 @@ bool AccountDB::GetAccountInfoForIPStop(int uid, char* accName, int* payStat, in
 bool AccountDB::RegAccountByServer(const LoginUser& user, int uid)
 {
     m_spinLock.Enter();
-    auto insertResult = m_accounts.insert(std::make_pair(uid, user));
+    std::pair<UserMap::iterator, bool> insertResult = m_accounts.insert(std::make_pair(uid, user));
     bool newUser = insertResult.second;
     m_spinLock.Leave();
     if (!newUser)

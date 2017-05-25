@@ -1,7 +1,7 @@
 #include "crypt/PwdCrypt.h"
 
 #include <cstring>
-#include <cstdint>
+#include "utils/cstdint_support.h"
 
 #define SLOBYTE(x) (*((int8_t*)&(x)))
 

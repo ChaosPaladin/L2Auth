@@ -12,9 +12,9 @@ long IPPacket::g_nPendingPacket;
 // 0x00426960
 IPPacket::IPPacket()
     : CIOObject()
-    , m_pSocket(nullptr)
-    , m_pBuf(nullptr)
-    , m_pFunc(nullptr)
+    , m_pSocket(NULL)
+    , m_pBuf(NULL)
+    , m_pFunc(NULL)
 {
 }
 
@@ -30,7 +30,7 @@ IPPacket* IPPacket::Alloc()
     slot->m_lock.Enter();
 
     IPPacket* packet = slot->m_data.packet;
-    if (packet != nullptr)
+    if (packet != NULL)
     {
         slot->m_data.socket = packet->m_pSocket;
         slot->m_lock.Leave();
@@ -53,13 +53,13 @@ void IPPacket::FreeAll()
         while (true)
         {
             IPPacket* packet = slot->m_data.packet;
-            if (packet == nullptr)
+            if (packet == NULL)
             {
                 break;
             }
 
             slot->m_data.socket = packet->m_pSocket;
-            if (packet != nullptr)
+            if (packet != NULL)
             {
                 delete packet;
             }

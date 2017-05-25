@@ -64,7 +64,7 @@ WorldSrvSocket::WorldSrvSocket(SOCKET socket)
     , m_packetSize(0)
     , m_socketStatus(SocketStatus_Init)
     , m_packetHandlers(WorldSrvSocket::handlers)
-    , m_worldSrvIP{}
+    , m_worldSrvIP()
 {
 }
 
@@ -719,7 +719,7 @@ bool WorldSrvSocket::packet20_getServerList(WorldSrvSocket* worldSrvSocket, uint
 {
     int size = 0;
     char packetBuffer[2048];
-    char* buff = nullptr;
+    char* buff = NULL;
 
     if (g_Config.newServerList)
     {

@@ -26,7 +26,7 @@ void CIOObject::ReleaseRef()
     ::InterlockedDecrement(&m_nRefCount);  // TODO: x64 unsafe
     if (m_nRefCount == 0)
     {
-        if (this != nullptr)
+        if (this != NULL)
         {
             delete this;
         }
@@ -72,5 +72,5 @@ void CIOObject::OnEventCallback()
 // 0x004180FB
 BOOL CIOObject::PostObject(DWORD id, HANDLE completionPort)
 {
-    return ::PostQueuedCompletionStatus(completionPort, id, (ULONG_PTR)this, nullptr);
+    return ::PostQueuedCompletionStatus(completionPort, id, (ULONG_PTR)this, NULL);
 }

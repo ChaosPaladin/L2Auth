@@ -83,6 +83,7 @@ set(HEADER_FILES
     ./src/ui/resources.h
     ./src/utils/CExceptionInit.h
     ./src/utils/CoreDump.h
+    ./src/utils/cstdint_support.h
     ./src/utils/SendMail.h
     ./src/utils/Unused.h
     ./src/utils/Utils.h

@@ -2,7 +2,7 @@
 
 #include "threads/CRWLock.h"
 
-#include <cstdint>
+#include "utils/cstdint_support.h"
 #include <vector>
 
 /**

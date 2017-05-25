@@ -1,7 +1,7 @@
 #pragma once
 
 #include "model/WorldServer.h"
-#include <cstdint>
+#include "utils/cstdint_support.h"
 
 class ServersProvider  // TODO: wrap all operations from ServerPacketList and ServerKind
 {
